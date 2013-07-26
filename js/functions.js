@@ -7,19 +7,55 @@ var cP = {
     $.ajax({
       type:'GET',
       dataType: 'jsonp',
-      url: url+':'+cPport+'/api/'+cPapi+'/movie.search/?callback_func=cP.callBack&q='+encodeURIComponent(term)
+      url:url+':'+cPport+'/api/'+cPapi+'/movie.search/?callback_func=cP.searchCallBack&q='+encodeURIComponent(term)
+    }).done(function(data){
+      console.log('Couch Potato Search Finished');
+    });
+  },
+  
+  add: function(movie) {
+    $.ajax({
+      type:'GET',
+      dataType: 'jsonp',
+      url:url+':'+cPport+'/api/'+cPapi+ '/movie.add/?callback_func=cP.addCallBack&identifier='+
+                movie.term+'&title='+movie.title
     }).done(function(data){
       console.log('Couch Potato Search Finished');
     });
   },
 
-  callBack: function(data,context) {
+  addCallBack: function(data,context) {
+    console.log('Cp Add Callback');
+    console.log(data);
+
+    if (data.success == true) {
+      alert('Successfully Added');
+    } else {
+      alert('Movie Not Added');
+    }
+    //search.stack(Handlebars.templates.cPListView(data), $('#stash'));
+  },
+
+  searchCallBack: function(data,context) {
     data.title = 'Movies';
     console.log(data);
-    console.log('Searched Cp');
     search.stack(Handlebars.templates.cPListView(data), $('#stash'));
+    
+    $.each(data.movies, function(i,el){
+      $('#'+this['imdb']).on('click', function(){
+        $('#buttons_'+this['imdb']).toggle();
+      }.bind(this));
+    
+      $('#cancel_'+this['imdb']).on('click', function(){
+        $('#buttons_'+this['imdb']).toggle();
+      }.bind(this));
+  
+      $('#add_'+this['imdb']).on('click', function(){
+        cP.add({term:this['imdb'],title:this.original_title});
+      }.bind(this));
+    
+    });
   }
-
 }
 
 var sB = {
@@ -53,6 +89,8 @@ var sB = {
   addCallBack: function(data){
     if (data.result == "success") {
       alert('Successfully Added: ' + data.data.name);
+    } else if (data.result == "failure") {
+      alert(data.message);
     }
   },
 

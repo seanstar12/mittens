@@ -1,10 +1,20 @@
 {{#if title}}
   <h3>{{title}}</h3>
 {{/if}}
-<ul class="listView">
+<table class="table-condensed table-striped mittensWidth">
   {{#each this.movies}}
-    <li class="listViewElm">
-      <span class="listViewTitle">{{original_title}}</span><span class="listViewYear">{{year}}</span>
-    </li>
+    <tr>
+      <td>
+        <div class="listInfo" id="{{imdb}}">
+          <div class="listTitle">{{original_title}}</div>
+          <div class="listDate">{{year}}</div>
+          <div class="listExtra"></div>
+        </div>
+        <div class="listAddMovie" style="display:none;" id="buttons_{{imdb}}">
+          <span class="label label-important listCancelButton" id="cancel_{{imdb}}">Cancel</span>
+          <span class="label label-success listAddButton" id="add_{{imdb}}">Add Movie</span>
+        </div>
+      </td>
+    </tr>
   {{/each}}
-</ul>
+</table>

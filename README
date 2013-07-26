@@ -20,3 +20,21 @@ What Doesn't Work:
   - You can't view any of your media indexed with SB or CP.
   - You can't access SAB.
   - It can't print money.
+
+What I want to Eventually Work:
+  - Add Show Manager
+    - Season Browser 
+    - Episode Browser
+      - Add to viewing queue
+  - Add Movie Manager
+    - Add / Remove Movies
+    - Add to queue
+  - Add Headphones Manager
+  - Add SAB Manager
+    - View in Progress Downloads
+    - View Logs
+  - XBMC remote   
+    - Manage multiple hosts
+    - Pause / play / etc...
+    - Update library
+

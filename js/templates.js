@@ -19,24 +19,40 @@ function program1(depth0,data) {
 function program3(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n    <li class=\"listViewElm\">\n      <span class=\"listViewTitle\">";
+  buffer += "\n    <tr>\n      <td>\n        <div class=\"listInfo\" id=\"";
+  if (stack1 = helpers.imdb) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.imdb; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\n          <div class=\"listTitle\">";
   if (stack1 = helpers.original_title) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.original_title; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</span><span class=\"listViewYear\">";
+    + "</div>\n          <div class=\"listDate\">";
   if (stack1 = helpers.year) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.year; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</span>\n    </li>\n  ";
+    + "</div>\n          <div class=\"listExtra\"></div>\n        </div>\n        <div class=\"listAddMovie\" style=\"display:none;\" id=\"buttons_";
+  if (stack1 = helpers.imdb) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.imdb; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\n          <span class=\"label label-important listCancelButton\" id=\"cancel_";
+  if (stack1 = helpers.imdb) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.imdb; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">Cancel</span>\n          <span class=\"label label-success listAddButton\" id=\"add_";
+  if (stack1 = helpers.imdb) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.imdb; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">Add Movie</span>\n        </div>\n      </td>\n    </tr>\n  ";
   return buffer;
   }
 
   stack1 = helpers['if'].call(depth0, depth0.title, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n<ul class=\"listView\">\n  ";
+  buffer += "\n<table class=\"table-condensed table-striped mittensWidth\">\n  ";
   stack1 = helpers.each.call(depth0, depth0.movies, {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n</ul>\n";
+  buffer += "\n</table>\n";
   return buffer;
   });
 templates['listView'] = template(function (Handlebars,depth0,helpers,partials,data) {
