@@ -1,0 +1,10 @@
+{{#if title}}
+  <h3>{{title}}</h3>
+{{/if}}
+<ul class="listView">
+  {{#each this.movies}}
+    <li class="listViewElm">
+      <span class="listViewTitle">{{original_title}}</span><span class="listViewYear">{{year}}</span>
+    </li>
+  {{/each}}
+</ul>

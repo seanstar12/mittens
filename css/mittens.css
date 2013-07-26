@@ -1,0 +1,57 @@
+body {
+  padding-top: 60px;
+}
+
+#searchBox {
+  width: 100px;
+}
+
+table.mittensWidth{
+  width: 100%;
+}
+
+table .listTitle {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+table .listDate {
+  font-size: 10px;
+  color: rgb(151, 151, 151);
+}
+
+table .listDate {
+  font-size: 10px;
+  color: rgb(151, 151, 151);
+}
+
+table .listBottom {
+  width: 100%;
+  padding-left: 5px;
+}
+
+table .listExtra {
+  display: inline-block;
+  float: right;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+table .listCancelButton {
+  height: 40px;
+  width: 30%;
+  text-align: center;
+  line-height: 40px;
+}
+
+table .listAddButton {
+  height: 40px;
+  width: 60%;
+  text-align: center;
+  line-height: 40px;
+}
+
+.mittensProgress {
+  width: 60%;
+  margin-left: 10px;
+}

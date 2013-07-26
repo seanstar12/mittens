@@ -1,0 +1,20 @@
+{{#if title}}
+  <h3>{{title}}</h3>
+{{/if}}
+<table class="table-condensed table-striped mittensWidth">
+  {{#each this.results}}
+    <tr>
+      <td>
+        <div class="listInfo" id="{{tvdbid}}">
+          <div class="listTitle">{{name}}</div>
+          <div class="listDate">{{first_aired}}</div>
+          <div class="listExtra"></div>
+        </div>
+        <div class="listAddShow" style="display:none;" id="buttons_{{tvdbid}}">
+          <span class="label label-important listCancelButton" id="cancel_{{tvdbid}}">Cancel</span>
+          <span class="label label-success listAddButton" id="add_{{tvdbid}}">Add Show</span>
+        </div>
+      </td>
+    </tr>
+  {{/each}}
+</table>
