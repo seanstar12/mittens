@@ -1,0 +1,11 @@
+Mittens!
+-------
+
+It's rough. But adding a show does work.
+
+To Use: 
+  - Put in a web accessable directory
+  - Move config.js.sample to config.js
+  - Input your credentials into config.js
+  - point browser to 'index.html'
+  - Laugh at the progress that hasn't been made yet!
