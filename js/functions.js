@@ -123,7 +123,7 @@ var search = {
   init: function(){
     this.count = this.stackCount = 0;
     $('#brandTag').html('.Search');
-    $('#stash').html(Handlebars.templates.progress());
+    $('#stash').html('');
   },
   term: function(term) {
     this.init();
@@ -145,11 +145,11 @@ var search = {
     this.stackCount++;
     
     var width = (this.stackCount/this.count)*100;
-    $('#progressBar').attr('style','width:'+width+'%');
+    $('#loadBarProgress').attr('style','width:'+width+'%');
     
     if (width == 100){
       setTimeout(function(){
-        $('#progressContainer').fadeOut(700);
+        $('#loadBarProgress').attr('style','width:0%');
       }, 700);
     }
   }

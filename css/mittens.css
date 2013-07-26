@@ -55,3 +55,15 @@ table .listAddButton {
   width: 60%;
   margin-left: 10px;
 }
+
+#loadBar {
+  height: 5px;
+  width: 100%;
+}
+
+#loadBarProgress {
+  height: 100%;
+  width: 0%;
+  background-color:rgb(255, 0, 173);
+}
+
