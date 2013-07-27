@@ -1,0 +1,28 @@
+<table class="table-condensed table-striped mittensWidth">
+  <tr>
+    <td>
+      image goes here
+    </td>
+  </tr>
+  <tr>
+    <td>
+      {{show.show_name}}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Episodes: {{episodes}} / {{totalEpisodes}}
+    </td>
+  </tr>
+  {{#each seasons}}
+    <tr>
+      <td>
+        <div class="listInfo" id="{{@index}}">
+          <div class="listTitle">{{season}}</div>
+          <div class="listDate">{{have}} / {{episodes}}</div>
+          <div class="listExtra"></div>
+        </div>
+      </td>
+    </tr>
+  {{/each}}
+</table>

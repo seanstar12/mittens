@@ -2,21 +2,17 @@
 {{#if title}}
   <h3>{{title}}</h3>
 {{/if}}
-<table class="table-condensed table-striped mittensWidth">
+<div class="listView">
   {{#each this.movies}}
-    <tr>
-      <td>
-        <div class="listInfo" id="{{imdb}}">
-          <div class="listTitle">{{original_title}}</div>
-          <div class="listDate">{{year}}</div>
+        <a class="listInfo" id="{{imdb}}">
+          <div class="title">{{original_title}}</div>
+          <div class="subText">{{year}}</div>
           <div class="listExtra"></div>
-        </div>
-        <div class="listAddMovie" style="display:none;" id="buttons_{{imdb}}">
+        </a>
+        <div class="listAdd" style="display:none;" id="buttons_{{imdb}}">
           <span class="label label-important listCancelButton" id="cancel_{{imdb}}">Cancel</span>
           <span class="label label-success listAddButton" id="add_{{imdb}}">Add Movie</span>
         </div>
-      </td>
-    </tr>
   {{/each}}
-</table>
+</div>
 {{/if}}
