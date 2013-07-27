@@ -1,5 +1,14 @@
 body {
-  padding-top: 60px;
+  font-size: 1.05em;
+  font-family: 'adobe-clean','HelveticaNeue-Light',Helvetica,Arial,sans-serif;
+  font-weight: 300;
+  background: #eeeeee url(../images/bg_texture.jpg) 50% -50px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+body, a {
+  color: #111111;
 }
 
 #searchBox {
@@ -37,19 +46,27 @@ table .listExtra {
   margin-left: 5px;
 }
 
-table .listCancelButton {
+.listView .listAdd {
+  background: #fff;
+  text-align: center;
+  padding: 15px 0px 15px 0px;
+  margin: 0 10px 0 10px;
+}
+
+.listView .listCancelButton {
   height: 40px;
   width: 30%;
   text-align: center;
   line-height: 40px;
 }
 
-table .listAddButton {
+.listView .listAddButton {
   height: 40px;
   width: 60%;
   text-align: center;
   line-height: 40px;
 }
+
 
 .mittensProgress {
   width: 60%;
@@ -67,3 +84,73 @@ table .listAddButton {
   background-color:rgb(255, 0, 173);
 }
 
+.wrap {
+  width: auto;
+  background: #eee;
+  -webkit-box-shadow: #888888 0 1px 4px;
+  -moz-box-shadow: #888888 0 1px 4px;
+  -o-box-shadow: #888888 0 1px 4px;
+  box-shadow: #888888 0 1px 4px;
+}
+
+.listView {
+  width: auto;
+  display: block;
+  float: none;
+  height: auto;
+}
+
+.listView a {
+  display: block;
+  float: none;
+  width: auto;
+  padding: 20px 18px;
+  text-align: left;
+  font-weight: 400;
+  border-bottom: 1px solid #dddddd;
+  border-left: 1px solid #dddddd;
+  background-color: #fff;
+  position: relative;
+  line-height: 1;
+  height: 49px;
+}
+
+.listView a:after {
+  content: '►';
+  position: absolute;
+  font-size: 12px;
+  right: 10px;
+  line-height: 1;
+  top: 50%;
+  margin-top: -6px;
+}
+
+.listView a:hover {
+  background-color: #27a1c5;
+  color: #fff;
+  text-decoration: none;
+}
+
+.listView a .subText {
+  font-weight: 300;
+  font-size: 0.9em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+  margin-top: 5px;
+}
+
+.listView a .title {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.title {
+  font-size: 1.2em;
+  line-height: 1.1em;
+  font-family: 'adobe-clean','HelveticaNeue',Helvetica,Arial,sans-serif;
+  font-weight: 400;
+}

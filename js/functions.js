@@ -84,6 +84,29 @@ var sB = {
       sB.listShowsCallBack(data);
     });
   },
+  
+  listShowSeasons: function(term) {
+    $.ajax({
+      type:'GET',
+      dataType: 'jsonp',
+      url: url+':'+sBport+'/api/'+sBapi+'/?cmd=show.seasons&tvdbid='+term
+    }).done(function(data){
+      console.log('Sb List Show Seasons');
+      sB.listShowSeasonsCallBack(data);
+    });
+  },
+
+    
+  listGetShow: function(term) {
+    $.ajax({
+      type:'GET',
+      dataType: 'jsonp',
+      url: url+':'+sBport+'/api/'+sBapi+'/?cmd=show|show.seasons&tvdbid='+term
+    }).done(function(data){
+      console.log('Sb List Show Seasons');
+      sB.listGetShowCallBack(data);
+    });
+  },
 
   add: function(showId){
     $.ajax({
@@ -108,9 +131,39 @@ var sB = {
   listShowsCallBack: function(data){
     console.log(data);
     if (data.result == "success") {
-      $.each(data.data, function(i, el){
-        console.log(this.show_name);
+      $('#stash').html(Handlebars.templates.sBListLibrary(data.data));
+    }
+  },
+  
+  listGetShowCallBack: function(data){
+//    console.log(data);
+    var mittData = {'totalEpisodes':'0','episodes':'0','seasons':[]};
+
+    if (data.result == "success") {
+   //   console.log(data.data['show.seasons']);
+      $.each(data.data['show.seasons'].data, function(i, season){
+        mittData.seasons[i] = {};
+        mittData.seasons[i]['have'] = 0;
+        $.each(season, function(y, episode){
+          mittData.seasons[i]['season'] = 'Season '+i;
+          mittData.seasons[i]['episodes'] = y;
+          mittData.seasons[i][y] = episode;
+          
+          if (episode.status != 'Skipped') {
+            mittData.episodes++;
+            mittData.seasons[i]['have']++;
+          }
+          
+          if (i == '0') {
+            mittData.seasons[i]['season'] = 'Specials';
+          }
+
+          mittData.totalEpisodes++;
+        });
       });
+      mittData.show = data.data.show.data;
+      console.log(mittData);
+      $('#stash').html(Handlebars.templates.sBListSeasons(mittData));
     }
   },
   
@@ -180,5 +233,9 @@ document.onLoad = (function(e){
     e.preventDefault();
     console.log($('#searchBox').val());
     search.term($('#searchBox').val());
+  });
+  $('#sickBeard').on('click', function(e){
+    sB.listShows();
+    console.log('here');
    });
 })();
