@@ -226,7 +226,7 @@ function program4(depth0,data) {
   if (stack1 = helpers.first_aired) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.first_aired; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</span>\n          <div class=\"listExtra\"></div>\n        </a>\n        <div class=\"listAddShow\" style=\"display:none;\" id=\"buttons_";
+    + "</span>\n          <div class=\"listExtra\"></div>\n        </a>\n        <div class=\"listAdd\" style=\"display:none;\" id=\"buttons_";
   if (stack1 = helpers.tvdbid) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.tvdbid; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
