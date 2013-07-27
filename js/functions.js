@@ -73,6 +73,17 @@ var sB = {
       sB.searchCallBack(data);
     });
   },
+  
+  listShows: function(term) {
+    $.ajax({
+      type:'GET',
+      dataType: 'jsonp',
+      url: url+':'+sBport+'/api/'+sBapi+'/?cmd=shows&sort=name'
+    }).done(function(data){
+      console.log('Sb List Shows');
+      sB.listShowsCallBack(data);
+    });
+  },
 
   add: function(showId){
     $.ajax({
@@ -94,6 +105,15 @@ var sB = {
     }
   },
 
+  listShowsCallBack: function(data){
+    console.log(data);
+    if (data.result == "success") {
+      $.each(data.data, function(i, el){
+        console.log(this.show_name);
+      });
+    }
+  },
+  
   searchCallBack: function(data,context) {
     data.data.title = 'TV Shows';
     console.log(data.data);
