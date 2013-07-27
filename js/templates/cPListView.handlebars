@@ -1,9 +1,8 @@
-{{#if this.movies}}
 {{#if title}}
   <h3>{{title}}</h3>
-{{/if}}
 <div class="listView">
   {{#each this.movies}}
+    {{#if imdb}}
         <a class="listInfo" id="{{imdb}}">
           <div class="title">{{original_title}}</div>
           <div class="subText">{{year}}</div>
@@ -13,6 +12,7 @@
           <span class="label label-important listCancelButton" id="cancel_{{imdb}}">Cancel</span>
           <span class="label label-success listAddButton" id="add_{{imdb}}">Add Movie</span>
         </div>
+    {{/if}}
   {{/each}}
 </div>
 {{/if}}

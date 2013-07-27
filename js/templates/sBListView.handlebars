@@ -4,6 +4,8 @@
 {{/if}}
 <div class="listView">
   {{#each this.results}}
+    {{#if tvdbid}}
+      {{#if first_aired}}
         <a class="listInfo" id="{{tvdbid}}">
           <span class="title">{{name}}</span>
           <span class="subText">{{first_aired}}</span>
@@ -13,6 +15,8 @@
           <span class="label label-important listCancelButton" id="cancel_{{tvdbid}}">Cancel</span>
           <span class="label label-success listAddButton" id="add_{{tvdbid}}">Add Show</span>
         </div>
+      {{/if}}
+    {{/if}}
   {{/each}}
 </div>
 {{/if}}

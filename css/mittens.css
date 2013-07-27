@@ -2,7 +2,7 @@ body {
   font-size: 1.05em;
   font-family: 'adobe-clean','HelveticaNeue-Light',Helvetica,Arial,sans-serif;
   font-weight: 300;
-  background: #eeeeee url(../images/bg_texture.jpg) 50% -50px;
+  background: #eeeeee url(../images/bg_texture.jpeg) 50% -50px;
   padding-right: 10px;
   padding-left: 10px;
 }
@@ -15,35 +15,8 @@ body, a {
   width: 100px;
 }
 
-table.mittensWidth{
-  width: 100%;
-}
-
-table .listTitle {
-  font-size: 15px;
-  font-weight: bold;
-}
-
-table .listDate {
-  font-size: 10px;
-  color: rgb(151, 151, 151);
-}
-
-table .listDate {
-  font-size: 10px;
-  color: rgb(151, 151, 151);
-}
-
-table .listBottom {
-  width: 100%;
-  padding-left: 5px;
-}
-
-table .listExtra {
-  display: inline-block;
-  float: right;
-  margin-right: 5px;
-  margin-left: 5px;
+#container {
+  padding-bottom: 30px;
 }
 
 .listView .listAdd {
@@ -123,6 +96,10 @@ table .listExtra {
   line-height: 1;
   top: 50%;
   margin-top: -6px;
+}
+
+.listInfoSelected a:after {
+  content: '▼';
 }
 
 .listView a:hover {
