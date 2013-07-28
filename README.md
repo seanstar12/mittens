@@ -1,5 +1,5 @@
  Mittens!
- ================================
+ ===
  
 ![Imgur](http://i.imgur.com/clVg24l.png)
 
