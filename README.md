@@ -1,40 +1,50 @@
-Mittens!
-================================
+ Mittens!
+ ================================
+ 
+![Imgur](http://i.imgur.com/clVg24l.png)
 
-*View a [screenshot](http://i.imgur.com/e8Il1DR.png)
+A grandmother-proof interface for Sick-Beard, CouchPotato, Headphones, and SABnzbd.
 
-It's rough. But adding a show does work.
-Currently, it will search both sickbeard and couchpotato for the string provided.
-From there, you'll be given a list of both TV shows and Movies. Click on the show/movie
-that you want, and select add. It's pretty simple.
+We want Mittens to be a simple and consistant interface to manage your media. As it stands, the interfaces for sb, cp, etc... are good, but it's difficult to teach the common roommate about ports and interfaces.
 
-To Use: 
-  - Put in a web accessable directory
-  - Move config.js.sample to config.js
-  - Input your credentials into config.js
-  - point browser to 'index.html'
+Our Goal:
+  
+  - Node.js Server that interfaces with providers 
+   - Provides security by only opening 1 port to access
+   - A unified API that just works.
+   - Allows expansion into Android / Apple / BBos apps
+  - Ember.js Client application to make every platform buttery smooth
+
+
+How to Run:
+
+  - Put client in a web accessable directory
+  - run node server/app.js (we don't know what we're doing yet)
+  - Move server/config.js.sample to server/config.js
+  - point browser to 'client/index.html'
   - Laugh at the progress that hasn't been made yet!
 
 What Doesn't Work:
-  - You can't add movies. It's late and I want to go to bed.
+
   - You can't view any of your media indexed with SB or CP.
   - You can't access SAB.
   - It can't print money.
 
 What I want to Eventually Work:
+
   - Add Show Manager
     - Season Browser 
     - Episode Browser
       - Add to viewing queue
   - Add Movie Manager
     - Add / Remove Movies
-    - Add to queue
+    - Add to Queue
   - Add Headphones Manager
   - Add SAB Manager
     - View in Progress Downloads
+    - Add files
     - View Logs
   - XBMC remote   
     - Manage multiple hosts
     - Pause / play / etc...
     - Update library
-
