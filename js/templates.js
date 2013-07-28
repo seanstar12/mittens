@@ -22,12 +22,21 @@ function program2(depth0,data) {
   
   var buffer = "", stack1;
   buffer += "\n    ";
-  stack1 = helpers['if'].call(depth0, depth0.imdb, {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
+  stack1 = helpers['if'].call(depth0, depth0.original_title, {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n  ";
   return buffer;
   }
 function program3(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n      ";
+  stack1 = helpers['if'].call(depth0, depth0.imdb, {hash:{},inverse:self.noop,fn:self.program(4, program4, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n    ";
+  return buffer;
+  }
+function program4(depth0,data) {
   
   var buffer = "", stack1;
   buffer += "\n        <a class=\"listInfo\" id=\"";
@@ -46,15 +55,15 @@ function program3(depth0,data) {
   if (stack1 = helpers.imdb) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.imdb; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\">\n          <span class=\"label label-important listCancelButton\" id=\"cancel_";
+    + "\">\n          <span class=\"btn btn-danger listCancelButton\" id=\"cancel_";
   if (stack1 = helpers.imdb) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.imdb; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\">Cancel</span>\n          <span class=\"label label-success listAddButton\" id=\"add_";
+    + "\">Cancel</span>\n          <span class=\"btn btn-success listAddButton\" id=\"add_";
   if (stack1 = helpers.imdb) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.imdb; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\">Add Movie</span>\n        </div>\n    ";
+    + "\">Add Movie</span>\n        </div>\n      ";
   return buffer;
   }
 

@@ -1,3 +1,5 @@
+@import url('searchBox.css');
+
 body {
   font-size: 1.05em;
   font-family: 'adobe-clean','HelveticaNeue-Light',Helvetica,Arial,sans-serif;
@@ -11,6 +13,7 @@ body, a {
   color: #111111;
 }
 
+
 #searchBox {
   width: 100px;
 }
@@ -19,23 +22,27 @@ body, a {
   padding-bottom: 30px;
 }
 
+.header {
+  height: 15px;
+}
+
 .listView .listAdd {
   background: #F8F8F8;
   text-align: center;
-  padding: 15px 0px 15px 0px;
+  padding: 15px 10px 15px 0px;
   margin: 0 10px 0 10px;
 }
 
 .listView .listCancelButton {
   height: 40px;
-  width: 30%;
+  width: 25%;
   text-align: center;
   line-height: 40px;
 }
 
 .listView .listAddButton {
   height: 40px;
-  width: 60%;
+  width: 55%;
   text-align: center;
   line-height: 40px;
 }

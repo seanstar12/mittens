@@ -231,8 +231,8 @@ var search = {
 document.onLoad = (function(e){    
   $('#searchForm').on('submit', function(e){
     e.preventDefault();
-    console.log($('#searchBox').val());
-    search.term($('#searchBox').val());
+    console.log($('#search').val());
+    search.term($('#search').val());
   });
   $('#sickBeard').on('click', function(e){
     sB.listShows();
