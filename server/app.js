@@ -1,7 +1,8 @@
-var http = require('http');
+var io = require('socket.io').listen(8080);
 
-var server = http.createServer(function(req, res) {
-  res.writeHead(200);
-  res.end('Hello Http');
+io.sockets.on('connection', function (socket) {
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
 });
-server.listen(8080);
