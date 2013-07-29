@@ -1,8 +1,10 @@
 module.exports = {
   socket:'',
+  uuid: '',
   returnSocketData: function(data){
     //var temp = JSON.parse(data);
-    this.socket.emit('returnSearch',data);
+    data.uuid = this.uuid;
+    this.socket.emit('ember-data',data);
   },
   parseRequest: function(response, parse){
     var str = '';
