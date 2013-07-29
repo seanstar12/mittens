@@ -3,8 +3,7 @@ var providers = require('./providers'),
     http      = require('http');
 
 module.exports = {
-  init: function(obj) {
-                                                             //obj.socket && obj.data
+  init: function(obj) {                                      //obj.socket && obj.data
     cmd.socket = obj.socket;                                 //Throw socket into helper.
     http.request(providers.SickBeard.search(obj.data.search), this.parseRequest).end();
   },
