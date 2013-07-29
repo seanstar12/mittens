@@ -1,10 +1,21 @@
 Mittens = Ember.Application.create();
 
-Mittens.Movie = DS.Model.extend({
+DS.SocketAdapter.map('Mittens.Movie', {
   primary_key: 'tmdb_id',
-  original_title: DS.attr('string'),
+  title: { key: 'original_title'},
+});
+
+// Create ember-data datastore and define our adapter
+Mittens.store = DS.Store.create({
+  adapter: DS.SocketAdapter.create({})
+});
+
+
+Mittens.Movie = DS.Model.extend({
+  title: DS.attr('string'),
   year: DS.attr('string'),
 });
+
 
 Mittens.MoviesRoute = Ember.Route.extend({
   model: function() {

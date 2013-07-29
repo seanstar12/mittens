@@ -37,11 +37,9 @@
   <script type="text/x-handlebars" id="search">
     {{view Ember.TextField valueBinding='query' name='search' viewName='searchField' placeholder='Search'}}
     <button class="submit" type="button" {{action submit model}}>Submit</button>
-    {{query}}
     <ul>
-    content {{content.length}}
     {{#each content itemTagName="li"}}
-      {{original_title}}
+      {{title}}
       {{year}}
     {{/each}}
     </ul>
@@ -52,9 +50,9 @@
   <script type="text/javascript" src="js/lib/handlebars-1.0.0-rc.4.js"></script>
   <script type="text/javascript" src="js/lib/ember-1.0.0-rc.6.1.min.js"></script>
   <script type="text/javascript" src="js/lib/ember-data-latest.min.js"></script>
+  <script type="text/javascript" src="js/socket-io-ds-adapter.js"></script>
   <script type="text/javascript" src="js/templates.js"></script>
   <script type="text/javascript" src="js/app.js"></script>
   <script type="text/javascript" src="js/router.js"></script>
-  <script type="text/javascript" src="js/socket-io-ds-adapter.js"></script>
 </body>
 </html>

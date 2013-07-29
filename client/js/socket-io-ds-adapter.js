@@ -210,8 +210,8 @@
       
       this.set('requests', {});
       
-      var ws = io.connect('//' + '10.0.1.8:8080');
-      //var ws = io.connect('//' + location.host);
+      //var ws = io.connect('//' + '10.0.1.8:8080');
+      var ws = io.connect('//' + location.host + ':8080');
       
       // For all standard socket.io client events, see https://github.com/LearnBoost/socket.io-client
       
@@ -239,12 +239,6 @@
       this.set('socket', ws);
     }
     
-  });
-
-  // Create ember-data datastore and define our adapter
-  Mittens.store = DS.Store.create({
-//    revision: 11,
-    adapter: DS.SocketAdapter.create({})
   });
   
   // Convenience method for handling saves of state via the model.
