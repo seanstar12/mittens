@@ -3,6 +3,9 @@ var http = require('http'),
     search = require('./lib/search'),
     emberData = require('./lib/emberData');
 
+// change log level in socket.io to not show debug messages
+io.set('log level', 2);
+
 io.sockets.on('connection', function (socket) {
   socket.on('search', function (data) {
     console.log(data);
