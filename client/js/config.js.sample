@@ -1,7 +1,0 @@
-var url = '';
-
-var sBport = '';
-var sBapi = '';
-
-var cPport = '';
-var cPapi = '';

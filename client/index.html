@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0">
   <title>Mittens</title>
+  <link rel="stylesheet" type="text/css" href="css/mittens.css" />
 </head>
 <body class="frame">
   <div class="header">
@@ -24,30 +25,36 @@
       </ul>
     </div>-->
   </div>
-  <div id="content">
-    <h2 id="title"></h2>
-    <div class="wrap">
+  
+  <script type="text/x-handlebars" id="application">
+    <div id="content">
+      <div id="stash">
+        {{outlet main}}
+      </div>
     </div>
-    <div id="stash"></div>
-  </div>
-  <link rel="stylesheet" type="text/css" href="css/mittens.css" />
-  <script src="js/classie.js" type="text/javascript"></script>
-  <script src="js/searchBox.js" type="text/javascript"></script>
-  <script src="js/jquery-2.0.2.min.js" type="text/javascript"></script>
-  <script src="js/handlebars.js" type="text/javascript"></script>
-  <script src="js/bootstrap.js" type="text/javascript"></script>
-  <script src="js/templates.js" type="text/javascript"></script>
-  <script src="js/config.js" type="text/javascript"></script>
-  <script src="js/functions.js" type="text/javascript"></script>
-  <script src="js/socket.io.min.js" type="text/javascript"></script>
-  <script>
-    new UISearch( document.getElementById( 'sb-search' ) );
-    var socket = io.connect('http://localhost:8080');
-    socket.on('search', function (data) {
-      var temp = JSON.parse(data);
-      $('#stash').html(Handlebars.templates.sBListView(temp.data)); 
-    });
-    socket.emit('search', { search: 'super'});
   </script>
+
+  <script type="text/x-handlebars" id="search">
+    {{view Ember.TextField valueBinding='query' name='search' viewName='searchField' placeholder='Search'}}
+    <button class="submit" type="button" {{action submit model}}>Submit</button>
+    {{query}}
+    <ul>
+    content {{content.length}}
+    {{#each content itemTagName="li"}}
+      {{original_title}}
+      {{year}}
+    {{/each}}
+    </ul>
+  </script>
+
+  <script type="text/javascript" src="js/lib/jquery-2.0.2.min.js"></script>
+  <script type="text/javascript" src="js/lib/socket.io.min.js"></script>
+  <script type="text/javascript" src="js/lib/handlebars-1.0.0-rc.4.js"></script>
+  <script type="text/javascript" src="js/lib/ember-1.0.0-rc.6.1.min.js"></script>
+  <script type="text/javascript" src="js/lib/ember-data-latest.min.js"></script>
+  <script type="text/javascript" src="js/templates.js"></script>
+  <script type="text/javascript" src="js/app.js"></script>
+  <script type="text/javascript" src="js/router.js"></script>
+  <script type="text/javascript" src="js/socket-io-ds-adapter.js"></script>
 </body>
 </html>
