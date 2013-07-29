@@ -1,18 +1,15 @@
 var providers = require('./providers'),
     cmd       = require('./commands'),
-    http      = require('http');
+    http      = require('http'),
+    jQuery    = require('jquery');
 
 module.exports = {
   init: function(obj) {                                      //obj.socket && obj.data
     cmd.socket = obj.socket;                                 //Throw socket into helper.
-    http.request(providers.SickBeard.search(obj.data.search), this.parseRequest).end();
-  },
-  parseRequest: function(response){
-    var str = '';
-    response.on('data', function (chunk) { str += chunk; });
-    response.on('end', function () {
-      cmd.returnSocketData(str);
-    });
     
+    jQuery.each(providers, function(){
+      if (this.active)
+        http.request(this.search(obj.data.search), this.retrieveSearchData).end();
+    });
   }
 }

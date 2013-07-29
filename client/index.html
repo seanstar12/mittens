@@ -44,8 +44,7 @@
     new UISearch( document.getElementById( 'sb-search' ) );
     var socket = io.connect('http://localhost:8080');
     socket.on('returnSearch', function (data) {
-      var temp = JSON.parse(data);
-      $('#stash').html(Handlebars.templates.sBListView(temp.data)); 
+      console.log(data);
     });
   </script>
 </body>
