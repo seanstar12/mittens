@@ -29,21 +29,25 @@
   
   <script type="text/x-handlebars" id="application">
     <div id="content">
-      <div id="stash">
         {{outlet main}}
-      </div>
     </div>
+  </script>
+
+  <script type="text/x-handlebars" id="movie">
+      <h3>{{title}}</h3>
+      <span class="subTitle">{{year}}</span>
   </script>
 
   <script type="text/x-handlebars" id="search">
     {{view Ember.TextField valueBinding='query' name='search' viewName='searchField' placeholder='Search'}}
     <button class="submit" type="button" {{action submit model}}>Submit</button>
-    <ul>
-    {{#each content itemTagName="li"}}
-      {{title}}
-      {{year}}
-    {{/each}}
-    </ul>
+    {{#if content.length}}
+      {{#each content tagName="ul" itemTagName="li" itemController="movie"}}
+        {{partial movie}}
+      {{/each}}
+    {{else}}
+      <h2>Please search for something</h2>
+    {{/if}}
   </script>
 
   <script type="text/javascript" src="js/lib/jquery-2.0.2.min.js"></script>

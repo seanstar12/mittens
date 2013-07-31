@@ -16,6 +16,9 @@ Mittens.Movie = DS.Model.extend({
   year: DS.attr('string'),
 });
 
+Mittens.MovieController = Ember.ObjectController.extend({});
+Mittens.MovieView = Ember.View.extend({});
+
 
 Mittens.MoviesRoute = Ember.Route.extend({
   model: function() {
