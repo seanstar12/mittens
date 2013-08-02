@@ -32,8 +32,10 @@ Mittens.SearchBoxComponent = Ember.Component.extend({
   classNames: ['search-box'],
   label: 'Search',
   query: '',
+  hasSearched: false,
   submit: function() {
     this.set('content',Mittens.Movie.find({search: this.get('query')}));
+    this.set('hasSearched', true);
   },
 });
 
