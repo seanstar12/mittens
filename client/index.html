@@ -10,7 +10,7 @@
 </head>
 <body class="frame">
   <div id="mittens"></div>
-  <script type="text/x-handlebars" id="application">
+  <script type="text/x-handlebars" id="index">
     {{search-box label='What would you like to watch today?'}}
     {{outlet main}}
   </script>
@@ -32,10 +32,17 @@
       {{view Mittens.SearchField valueBinding='query' placeholderBinding='label'}}
       <button {{action submit}}><i class="icon-search"></i><span> Search</span></button>
     </header>
-    {{#if content.length}}
-      {{#collection contentBinding="content" tagName="ul" }}
-        {{search-item item=this}}
-      {{/collection}}
+    {{#if hasSearched}}
+      <div class="results">
+      {{#if content.isLoaded}}
+          <h3>Movies</h3>
+          {{#collection contentBinding="content" tagName="ul" }}
+            {{search-item item=this}}
+          {{/collection}}
+      {{else}}
+        <i class="icon-spinner icon-spin icon-large loading"></i>
+      {{/if}}
+      </div>
     {{/if}}
   </script>
 

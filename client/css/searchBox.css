@@ -46,10 +46,30 @@
   width: 0;
   text-indent: -1000px;
   display: block;
+  overflow: hidden;
+}
+
+.search-box .results {
+  background: #fff;
+  box-shadow: #333 0 0 1em -0.3em;
+}
+
+.search-box .loading {
+  text-align: center;
+  width: 100%;
+  margin: 0.5em;
+  font-size: 1.5em
+}
+
+.search-box h3 {
+  margin: 0;
+  background: #f1f1f1;
+  font-weight: normal;
+  font-size: 1em;
+  padding: 0.4rem;
 }
 
 .search-box ul {
-  box-shadow: #333 0 0 1em -0.3em;
   margin: 0;
   padding: 0;
 }
