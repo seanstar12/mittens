@@ -15,14 +15,15 @@
     {{outlet main}}
   </script>
 
-  <script type="text/x-handlebars" id="movie">
-      <h3>{{title}}</h3>
-      <span class="subTitle">year {{year}}</span>
-  </script>
-
   <script type="text/x-handlebars" id="components/search-item">
-      <h3>{{item.title}}</h3>
+    <div class="body">
+      <h4>{{item.title}}</h4>
       <span class="subTitle">{{item.year}}</span>
+      <a class="open" {{action showActions}}><i class="icon-chevron-right"></i><span> Open</span></a>
+    </div>
+    <div class="actions">
+      <a {{action addItem}}>Add</a>
+    </div>
   </script>
   
 

@@ -1,7 +1,7 @@
 .search-box {
   max-width: 40em;
   min-width: 14em;
-  margin: 1em;
+  margin: 1rem;
   box-sizing: border-box;
 }
 
@@ -10,6 +10,7 @@
   display: flex;
   font-size: 1em;
   line-height: 1em;
+  box-shadow: #333 0 0 1em -0.3em;
 }
 
 .search-box header input {
@@ -31,8 +32,8 @@
 
 .search-box header button  {
   font-size: 1.2em;
-  line-height: 1.5em;
-  padding: 0.2em 0.5em;
+  line-height: 0;
+  padding: 0.5em 0.5em;
   background: #FF7A00;
   color: #fff;
   border: none;
@@ -47,56 +48,59 @@
   display: block;
 }
 
-.search-box-submit {
-  background: #fff; /* IE needs this */
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; /* IE 8 */
-    filter: alpha(opacity=0); /* IE 5-7 */
-    opacity: 0;
-  color: transparent;
-  border: none;
-  outline: none;
-  z-index: -1;
+.search-box ul {
+  box-shadow: #333 0 0 1em -0.3em;
+  margin: 0;
+  padding: 0;
 }
 
-.sb-icon-search {
-  color: #FFF;
-  background: #FF7A00;
-  z-index: 90;
-  font-size: 22px;
-  font-family: 'icomoon';
-  speak: none;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  -webkit-font-smoothing: antialiased;
+.search-box li {
+  display: block;
+  border-bottom: 1px solid #dddddd;
+  background-color: #fff;
+  position: relative;
 }
 
-.sb-icon-search:before {
-  content: "\e000";
-}
-
-/* Open state */
-.search-box.search-box-open,
-.no-js .search-box {
-  width: 100%;
-}
-
-.search-box.search-box-open .sb-icon-search,
-.no-js .search-box .sb-icon-search {
-  background: #da6d0d;
+.search-box li:hover {
+  background-color: #27a1c5;
   color: #fff;
-  z-index: 11;
 }
 
-.search-box.search-box-open .search-box-submit,
-.no-js .search-box .search-box-submit {
-  z-index: 90;
+.search-box .body {
+  display: -webkit-flex;
+  display: flex;
 }
 
-.label-success, .btn-success {
-  background-color: rgb(126, 255, 126);
+.search-box h4 {
+  font-size: 1.2em;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 0 0.5em 0 0;
+  -webkit-flex: 1;
+  flex: 1;
+  margin: 0.82rem;
+  color: #2f373a;
 }
-.label-important, .btn-danger {
-  background-color: red;
+
+.search-box .subTitle {
+  color: #ccc;
+  font-weight: bold;
+  font-size: 1.3rem;;
+  margin: 0.6rem 0;
+}
+
+.search-box .open {
+  margin: 0.82rem;
+}
+
+.search-box .open span {
+  font-size: 0;
+  line-height: 0;
+  text-indent: -1000px;
+}
+
+.search-box .actions {
+  display: none;
 }

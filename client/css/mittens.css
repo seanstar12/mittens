@@ -9,7 +9,7 @@ html {
 }
 
 html.touch {
-  font-size: 1.5em;
+  font-size: 1.3em;
 }
 
 body {
@@ -72,66 +72,3 @@ body {
   box-shadow: #888888 0 1px 4px;
 }
 
-ul {
-  padding: 0;
-}
-
-ul li {
-  display: block;
-  float: none;
-  width: auto;
-  padding: 20px 18px;
-  text-align: left;
-  font-weight: 400;
-  border-bottom: 1px solid #dddddd;
-  border-left: 1px solid #dddddd;
-  background-color: #fff;
-  position: relative;
-  line-height: 1;
-  height: 49px;
-}
-
-ul li:after {
-  content: '►';
-  position: absolute;
-  font-size: 12px;
-  right: 10px;
-  line-height: 1;
-  top: 50%;
-  margin-top: -6px;
-}
-
-.listInfoSelected a:after {
-  content: '▼';
-}
-
-ui li:hover {
-  background-color: #27a1c5;
-  color: #fff;
-  text-decoration: none;
-}
-
-ul li h3 {
-  display: block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  margin: 0 0 0.5em 0;
-}
-
-ul li .subText {
-  font-weight: 300;
-  font-size: 0.9em;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  display: block;
-  margin-top: 5px;
-}
-
-h3 {
-  font-size: 1.2em;
-  line-height: 1.1em;
-  font-family: 'adobe-clean','HelveticaNeue',Helvetica,Arial,sans-serif;
-  font-weight: 400;
-}

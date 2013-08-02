@@ -12,7 +12,6 @@ Mittens.store = DS.Store.create({
   adapter: DS.SocketAdapter.create({})
 });
 
-
 Mittens.Movie = DS.Model.extend({
   title: DS.attr('string'),
   year: DS.attr('string'),
@@ -26,12 +25,6 @@ Mittens.MoviesRoute = Ember.Route.extend({
   model: function() {
     return Mittens.Movie.find({search: 'super'});
   }
-});
-
-Mittens.SearchRoute = Ember.Route.extend({
-  renderTemplate: function() {
-    this.render('search', { into: 'application', outlet: 'main'});
-  },
 });
 
 Mittens.SearchBoxComponent = Ember.Component.extend({
