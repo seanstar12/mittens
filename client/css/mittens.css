@@ -1,29 +1,28 @@
+@import url(http://fonts.googleapis.com/css?family=Oxygen);
 @import url('searchBox.css');
 
-body {
-  font-size: 1.05em;
-  font-family: 'adobe-clean','HelveticaNeue-Light',Helvetica,Arial,sans-serif;
+html {
+  height: 100%;
+  font-size: 1em;
+  font-family: 'Oxygen','HelveticaNeue-Light',Helvetica,Arial,sans-serif;
   font-weight: 300;
-  background: #eeeeee url(../images/bg_texture.jpeg) 50% -50px;
-  padding-right: 10px;
-  padding-left: 10px;
 }
 
-body, a {
-  color: #111111;
+html.touch {
+  font-size: 1.5em;
 }
 
-
-#searchBox {
-  width: 100px;
+body {
+  height: 100%;
+  background: #eee url(../images/bg_texture.jpeg) fixed;
+  display: -webkit-flex;
+  display: flex;
 }
 
-#container {
-  padding-bottom: 30px;
-}
-
-.header {
-  height: 15px;
+#mittens {
+  margin: auto;
+  max-width: 40em;
+  width: 100%;
 }
 
 .listView .listAdd {

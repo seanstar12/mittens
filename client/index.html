@@ -6,51 +6,40 @@
   <title>Mittens</title>
   <link rel="stylesheet" type="text/css" href="css/normalize.css" />
   <link rel="stylesheet" type="text/css" href="css/mittens.css" />
+  <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" />
 </head>
 <body class="frame">
-  <div class="header">
-    <div id="loadBar"><div id="loadBarProgress"></div></div>
-    <div id="sb-search" class="sb-search">
-      <form id="searchForm">
-        <input class="sb-search-input" placeholder="Search" type="search"name="search" id="search">
-        <input class="sb-search-submit" type="submit" value="">
-        <span class="sb-icon-search"></span>
-      </form>
-    </div>
-    <!--<a class="brand" href="#">ツ<span id="brandTag"></span></a> 
-    <a class="brand" href="#"><span id="brandTag"></span></a>
-    <div class="nav-collapse collapse">
-      <ul class="nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a id="sickBeard" href="#">SickBeard</a></li>
-      </ul>
-    </div>-->
-  </div>
-  
+  <div id="mittens"></div>
   <script type="text/x-handlebars" id="application">
-    <div id="content">
-        {{outlet main}}
-    </div>
+    {{search-box label='What would you like to watch today?'}}
+    {{outlet main}}
   </script>
 
   <script type="text/x-handlebars" id="movie">
       <h3>{{title}}</h3>
-      <span class="subTitle">{{year}}</span>
+      <span class="subTitle">year {{year}}</span>
   </script>
 
-  <script type="text/x-handlebars" id="search">
-    {{view Ember.TextField valueBinding='query' name='search' viewName='searchField' placeholder='Search'}}
-    <button class="submit" type="button" {{action submit model}}>Submit</button>
+  <script type="text/x-handlebars" id="components/search-item">
+      <h3>{{item.title}}</h3>
+      <span class="subTitle">{{item.year}}</span>
+  </script>
+  
+
+  <script type="text/x-handlebars" id="components/search-box">
+    <header>
+      {{view Mittens.SearchField valueBinding='query' placeholderBinding='label'}}
+      <button {{action submit}}><i class="icon-search"></i><span> Search</span></button>
+    </header>
     {{#if content.length}}
-      {{#each content tagName="ul" itemTagName="li" itemController="movie"}}
-        {{partial movie}}
-      {{/each}}
-    {{else}}
-      <h2>Please search for something</h2>
+      {{#collection contentBinding="content" tagName="ul" }}
+        {{search-item item=this}}
+      {{/collection}}
     {{/if}}
   </script>
 
   <script type="text/javascript" src="js/lib/jquery-2.0.2.min.js"></script>
+  <script type="text/javascript" src="js/lib/modernizr.touch-only.js"></script>
   <script type="text/javascript" src="js/lib/socket.io.min.js"></script>
   <script type="text/javascript" src="js/lib/handlebars-1.0.0-rc.4.js"></script>
   <script type="text/javascript" src="js/lib/ember-1.0.0-rc.6.1.min.js"></script>

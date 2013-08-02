@@ -1,4 +1,6 @@
-Mittens = Ember.Application.create();
+Mittens = Ember.Application.create({
+  rootElement: '#mittens',
+});
 
 DS.SocketAdapter.map('Mittens.Movie', {
   primary_key: 'tmdb_id',
@@ -32,10 +34,30 @@ Mittens.SearchRoute = Ember.Route.extend({
   },
 });
 
-Mittens.SearchController = Ember.ArrayController.extend({
+Mittens.SearchBoxComponent = Ember.Component.extend({
+  tagName: 'section',
+  classNames: ['search-box'],
+  label: 'Search',
   query: '',
-
-  submit: function(model) {
+  submit: function() {
     this.set('content',Mittens.Movie.find({search: this.get('query')}));
+  },
+});
+
+Mittens.SearchItemComponent = Ember.Component.extend({
+  classNameBindings: ['isOpen:open'],
+  isOpen: false,
+});
+
+Mittens.SearchField = Ember.TextField.extend({
+  name: 'search',
+  viewName: 'search',
+  placeholder: 'Search',
+  attributeBinding: ['autofocus'],
+  didInsertElement: function() {
+    this.$().focus();
+  },
+  insertNewline: function() {
+    this.get('controller').submit();
   },
 });
