@@ -10,7 +10,9 @@ io.sockets.on('connection', function (socket) {
     console.log({'data':data, 'socket':socket, source:'search'});
   });
   socket.on('ember-data',function (data) {
+    console.log('Received: ' + data.action);
     console.log(data);
+
     var req = Request.init({data:data, socket:socket, source:'ember-data'});
   });
 });

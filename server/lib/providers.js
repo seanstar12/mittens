@@ -7,11 +7,8 @@ var providers =  {
     alias: "Tv Shows",
     sort: "show",
     config: {},
-    retrieveSearchData: function(response){
-      providers.parseReq(response, providers.SickBeard.parse);
-    },
     FIND_QUERY: function(query) {
-      var safeQuery = encodeURIComponent(query);
+      var safeQuery = encodeURIComponent(query.search);
       
       return {
         host: this.config.host,
@@ -35,9 +32,21 @@ var providers =  {
     sort: "movie",
     config: {},
     FIND_QUERY: function(query){
-      console.log('CouchPotato.FIND_QUERY: '+ query);
-      var safeQuery = encodeURIComponent(query),
+      console.log('CouchPotato.FIND_QUERY: '+ query.search);
+      var safeQuery = encodeURIComponent(query.search),
           path =  '/api/' + this.config.api + '/movie.search/?q=' + safeQuery;
+     
+      console.log(path); 
+      return {
+        host: this.config.host,
+        port: this.config.port,
+        path: path
+      }
+      
+    },
+    CREATE: function(obj){
+      console.log('CouchPotato.CREATE: '+ query.imdb);
+      var    path =  '/api/' + this.config.api + '/movie.add/?identifier=' + query.imdb;
       
       return {
         host: this.config.host,
@@ -47,7 +56,7 @@ var providers =  {
       
     },
     formatData: function(str){
-      console.log('CouchPotato.formatData:');
+      console.log('CouchPotato.formatData(listOfMovies)');
       return {movies: JSON.parse(str).movies}
     }
   },

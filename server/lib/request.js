@@ -9,9 +9,9 @@ var request = {
     this.action = obj.data.action;
     this.uuid = obj.uuid;
     this.provider = providers.getProvider(this.data.type);
-    
+
     console.log('Http Request being built');
-    http.request(this.provider[this.data.action](this.data.query.search),
+    http.request(this.provider[this.action](this.data.query),
                  this.parseResponse).end();               
 
   },
