@@ -1,7 +1,4 @@
-var config = require('./config'),
-    http   = require('http'),
-    jQuery = require('jquery'),
-    cmd = require('./commands');
+var config = require('./config');
 
 var providers =  {
   SickBeard : {
@@ -11,14 +8,9 @@ var providers =  {
     sort: "show",
     config: {},
     retrieveSearchData: function(response){
-      cmd.socket.emit('progress','Retrieveing Search Data: '+providers.SickBeard.title);
-      cmd.parseRequest(response, providers.SickBeard.parse);
+      providers.parseReq(response, providers.SickBeard.parse);
     },
-    parse: function(data){
-      cmd.socket.emit('progress','Parsing Search Data: '+providers.SickBeard.title);
-      cmd.returnSocketData({'TV Shows':JSON.parse(data).data.results});
-    },
-    search: function(query) {
+    FIND_QUERY: function(query) {
       var safeQuery = encodeURIComponent(query);
       
       return {
@@ -42,34 +34,31 @@ var providers =  {
     alias: "Movies",
     sort: "movie",
     config: {},
-    retrieveSearchData: function(response){
-      //cmd.socket.emit('progress','Retrieveing Search Data: '+providers.CouchPotato.title);
-      cmd.parseRequest(response, providers.CouchPotato.parse);
-    },
-    parse: function(data){
-      //cmd.socket.emit('progress','Parsing Search Data: '+providers.CouchPotato.title);
-      cmd.returnSocketData({'data':{'movies':JSON.parse(data).movies}});
-    },
-    search: function(query) {
-      var safeQuery = encodeURIComponent(query);
-      var path =  '/api/' + this.config.api + '/movie.search/?q=' + safeQuery;
+    FIND_QUERY: function(query){
+      console.log('CouchPotato.FIND_QUERY: '+ query);
+      var safeQuery = encodeURIComponent(query),
+          path =  '/api/' + this.config.api + '/movie.search/?q=' + safeQuery;
+      
       return {
         host: this.config.host,
         port: this.config.port,
-        path: path,
+        path: path
       }
+      
+    },
+    formatData: function(str){
+      console.log('CouchPotato.formatData:');
+      return {movies: JSON.parse(str).movies}
     }
   },
   getProvider: function(type){
-    console.log('Find Provider For: ' + type);
-    var ret = '';
-    jQuery.each(providers, function(i,el){
-      if (typeof el !== 'function' && type == el.sort){
-        ret = el;
-        return true; 
+    console.log('Finding Provider For: ' + type);
+    for (var key in providers) {
+      if (type == providers[key].sort){
+        console.log('Found Provider \"' + key + '\" for ' + type);  
+        return providers[key];
       }
-    }); 
-    return ret;
+    } 
   }
 }
 
