@@ -16,7 +16,6 @@ var providers =  {
         port: this.config.port,
         path: '/api/' + this.config.api + '/?cmd=sb.searchtvdb&lang=en&name=' + safeQuery
       }
-      
     },
     UPDATE: function(query){
       console.log('SickBeard.UPDATE: '+ query.tvbid);
@@ -54,7 +53,6 @@ var providers =  {
         port: this.config.port,
         path: path
       }
-      
     },
     //Using update so we don't have to mess with socket plugin settings.
     UPDATE: function(query){
@@ -65,14 +63,27 @@ var providers =  {
         port: this.config.port,
         path: '/api/' + this.config.api + '/movie.add/?identifier=' + query.imdb
       }
+    },
+    FIND_MANY: function(query){
+      // Find from couchpotato manager
+      console.log('CouchPotato.FIND_MANY: ');
+      var path = '/api/' + this.config.api + '/movie.list/?';
       
+      if (query.status) path += 'status='+query.status;
+      if (query.search) path += '&search='+encodeURIComponent(query.search);
+
+      return {
+        host: this.config.host,
+        port: this.config.port,
+        path: path
+      }
     }, 
     formatData: function(str){
       console.log('CouchPotato.formatData()');
       var returnData = JSON.parse(str);
-
+      
       if (returnData.added) {
-        return returnData;
+        return returnData;  // catches success /fail message for adding movies
       } else { 
         return {movies: JSON.parse(str).movies};
       }
@@ -105,5 +116,6 @@ var providers =  {
 
 providers.SickBeard.config = config.SickBeard;
 providers.CouchPotato.config = config.CouchPotato;
+providers.SABnzbd.config = config.SABnzbd;
 
 module.exports = providers;
