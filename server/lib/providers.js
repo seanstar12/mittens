@@ -8,6 +8,7 @@ var providers =  {
     sort: "show",
     config: {},
     FIND_QUERY: function(query) {
+      console.log('SickBeard.FIND_QUERY: '+ query.search);
       var safeQuery = encodeURIComponent(query.search);
       
       return {
@@ -17,12 +18,24 @@ var providers =  {
       }
       
     },
+    UPDATE: function(query){
+      console.log('SickBeard.UPDATE: '+ query.tvbid);
+      return {
+        host: this.config.host,
+        port: this.config.port,
+        path: '/api/'+ this.config.api + '/?cmd=addnew&tvdbid='+query.tvbid
+      }
+    },
     listShow: function(id){
       return {
         host: this.config.host,
         port: this.config.port,
         path: '/api/'+ this.config.api + '/?cmd=show|show.seasons&tvdbid='+id
       }
+    },
+    formatData: function(str){
+      console.log('SickBeard.formatData()');
+      return {tvshows: JSON.parse(str).results}
     }
   },
   CouchPotato : {
@@ -36,7 +49,6 @@ var providers =  {
       var safeQuery = encodeURIComponent(query.search),
           path =  '/api/' + this.config.api + '/movie.search/?q=' + safeQuery;
      
-      console.log(path); 
       return {
         host: this.config.host,
         port: this.config.port,
@@ -44,20 +56,44 @@ var providers =  {
       }
       
     },
-    CREATE: function(obj){
+    CREATE: function(query){
       console.log('CouchPotato.CREATE: '+ query.imdb);
-      var    path =  '/api/' + this.config.api + '/movie.add/?identifier=' + query.imdb;
       
       return {
         host: this.config.host,
         port: this.config.port,
-        path: path
+        path: '/api/' + this.config.api + '/movie.add/?identifier=' + query.imdb
+      }
+      
+    },
+    //Using update so we don't have to mess with socket plugin settings.
+    UPDATE: function(query){
+      console.log('CouchPotato.UPDATE: '+ query.imdb);
+      
+      return {
+        host: this.config.host,
+        port: this.config.port,
+        path: '/api/' + this.config.api + '/movie.add/?identifier=' + query.imdb
       }
       
     },
     formatData: function(str){
-      console.log('CouchPotato.formatData(listOfMovies)');
+      console.log('CouchPotato.formatData()');
       return {movies: JSON.parse(str).movies}
+    }
+  },
+  SABnzbd: {
+    active: true,
+    title: "SABnzbd",
+    alias: "NZBs",
+    sort: "nzb",
+    FIND_ALL: function(){
+      console.log('SABnzbd.FIND_ALL');
+      return {
+        host: this.config.host,
+        port: this.config.port,
+        path: '/api?apikey=' + this.config.api + '&output=json&mode=qstatus'
+      }
     }
   },
   getProvider: function(type){

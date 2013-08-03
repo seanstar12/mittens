@@ -8,10 +8,14 @@ var request = {
     this.source = obj.source;
     this.action = obj.data.action;
     this.uuid = obj.uuid;
-    this.provider = providers.getProvider(this.data.type);
 
+    //temporary helper until luke gets his act together
+    this.query = (this.data.query) ? this.data.query : this.data.record;
+    if (this.data.type == 'movie_request') this.data.type = 'movie';
+    
+    this.provider = providers.getProvider(this.data.type);
     console.log('Http Request being built');
-    http.request(this.provider[this.action](this.data.query),
+    http.request(this.provider[this.action](this.query),
                  this.parseResponse).end();               
 
   },
