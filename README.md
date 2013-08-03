@@ -48,3 +48,7 @@ What I want to Eventually Work:
     - Manage multiple hosts
     - Pause / play / etc...
     - Update library
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/seanstar12/mittens/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
