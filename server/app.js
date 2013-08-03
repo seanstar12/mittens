@@ -1,5 +1,5 @@
 var http = require('http'),
-    io = require('socket.io').listen(8080),
+    io = require('socket.io').listen(8099),
     Request = require('./lib/request');
 
 // change log level in socket.io to not show debug messages
