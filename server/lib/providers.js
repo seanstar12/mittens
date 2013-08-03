@@ -1,7 +1,4 @@
-var config = require('./config'),
-    http   = require('http'),
-    jQuery = require('jquery'),
-    cmd = require('./commands');
+var config = require('./config');
 
 var providers =  {
   SickBeard : {
@@ -10,16 +7,9 @@ var providers =  {
     alias: "Tv Shows",
     sort: "show",
     config: {},
-    retrieveSearchData: function(response){
-      cmd.socket.emit('progress','Retrieveing Search Data: '+providers.SickBeard.title);
-      cmd.parseRequest(response, providers.SickBeard.parse);
-    },
-    parse: function(data){
-      cmd.socket.emit('progress','Parsing Search Data: '+providers.SickBeard.title);
-      cmd.returnSocketData({'TV Shows':JSON.parse(data).data.results});
-    },
-    search: function(query) {
-      var safeQuery = encodeURIComponent(query);
+    FIND_QUERY: function(query) {
+      console.log('SickBeard.FIND_QUERY: '+ query.search);
+      var safeQuery = encodeURIComponent(query.search);
       
       return {
         host: this.config.host,
@@ -28,12 +18,24 @@ var providers =  {
       }
       
     },
+    UPDATE: function(query){
+      console.log('SickBeard.UPDATE: '+ query.tvbid);
+      return {
+        host: this.config.host,
+        port: this.config.port,
+        path: '/api/'+ this.config.api + '/?cmd=addnew&tvdbid='+query.tvbid
+      }
+    },
     listShow: function(id){
       return {
         host: this.config.host,
         port: this.config.port,
         path: '/api/'+ this.config.api + '/?cmd=show|show.seasons&tvdbid='+id
       }
+    },
+    formatData: function(str){
+      console.log('SickBeard.formatData()');
+      return {tvshows: JSON.parse(str).results}
     }
   },
   CouchPotato : {
@@ -42,34 +44,66 @@ var providers =  {
     alias: "Movies",
     sort: "movie",
     config: {},
-    retrieveSearchData: function(response){
-      //cmd.socket.emit('progress','Retrieveing Search Data: '+providers.CouchPotato.title);
-      cmd.parseRequest(response, providers.CouchPotato.parse);
-    },
-    parse: function(data){
-      //cmd.socket.emit('progress','Parsing Search Data: '+providers.CouchPotato.title);
-      cmd.returnSocketData({'data':{'movies':JSON.parse(data).movies}});
-    },
-    search: function(query) {
-      var safeQuery = encodeURIComponent(query);
-      var path =  '/api/' + this.config.api + '/movie.search/?q=' + safeQuery;
+    FIND_QUERY: function(query){
+      console.log('CouchPotato.FIND_QUERY: '+ query.search);
+      var safeQuery = encodeURIComponent(query.search),
+          path =  '/api/' + this.config.api + '/movie.search/?q=' + safeQuery;
+     
       return {
         host: this.config.host,
         port: this.config.port,
-        path: path,
+        path: path
+      }
+      
+    },
+    CREATE: function(query){
+      console.log('CouchPotato.CREATE: '+ query.imdb);
+      
+      return {
+        host: this.config.host,
+        port: this.config.port,
+        path: '/api/' + this.config.api + '/movie.add/?identifier=' + query.imdb
+      }
+      
+    },
+    //Using update so we don't have to mess with socket plugin settings.
+    UPDATE: function(query){
+      console.log('CouchPotato.UPDATE: '+ query.imdb);
+      
+      return {
+        host: this.config.host,
+        port: this.config.port,
+        path: '/api/' + this.config.api + '/movie.add/?identifier=' + query.imdb
+      }
+      
+    },
+    formatData: function(str){
+      console.log('CouchPotato.formatData()');
+      return {movies: JSON.parse(str).movies}
+    }
+  },
+  SABnzbd: {
+    active: true,
+    title: "SABnzbd",
+    alias: "NZBs",
+    sort: "nzb",
+    FIND_ALL: function(){
+      console.log('SABnzbd.FIND_ALL');
+      return {
+        host: this.config.host,
+        port: this.config.port,
+        path: '/api?apikey=' + this.config.api + '&output=json&mode=qstatus'
       }
     }
   },
   getProvider: function(type){
-    console.log('Find Provider For: ' + type);
-    var ret = '';
-    jQuery.each(providers, function(i,el){
-      if (typeof el !== 'function' && type == el.sort){
-        ret = el;
-        return true; 
+    console.log('Finding Provider For: ' + type);
+    for (var key in providers) {
+      if (type == providers[key].sort){
+        console.log('Found Provider \"' + key + '\" for ' + type);  
+        return providers[key];
       }
-    }); 
-    return ret;
+    } 
   }
 }
 
