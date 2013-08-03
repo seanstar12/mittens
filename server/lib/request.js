@@ -9,11 +9,10 @@ var request = {
     this.action = obj.data.action;
     this.uuid = obj.uuid;
     this.provider = providers.getProvider(this.data.type);
-
+    
     console.log('Http Request being built');
     http.request(this.provider[this.action](this.data.query),
                  this.parseResponse).end();               
-
   },
 
   // Keeping this here allows context so we can use request.bleh

@@ -44,9 +44,9 @@ var providers =  {
       }
       
     },
-    CREATE: function(obj){
+    UPDATE: function(query){
       console.log('CouchPotato.CREATE: '+ query.imdb);
-      var    path =  '/api/' + this.config.api + '/movie.add/?identifier=' + query.imdb;
+      var path =  '/api/' + this.config.api + '/movie.add/?identifier=' + query.imdb;
       
       return {
         host: this.config.host,
@@ -54,10 +54,16 @@ var providers =  {
         path: path
       }
       
-    },
+    }, 
     formatData: function(str){
-      console.log('CouchPotato.formatData(listOfMovies)');
-      return {movies: JSON.parse(str).movies}
+      console.log('CouchPotato.formatData()');
+      var returnData = JSON.parse(str);
+
+      if (returnData.added) {
+        return returnData;
+      } else { 
+        return {movies: JSON.parse(str).movies};
+      }
     }
   },
   getProvider: function(type){
