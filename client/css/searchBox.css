@@ -63,7 +63,7 @@
 
 .search-box h3 {
   margin: 0;
-  background: #f1f1f1;
+  background: #e1e1e1;
   font-weight: normal;
   font-size: 1em;
   padding: 0.4rem;
@@ -102,6 +102,11 @@
   flex: 1;
   margin: 0.82rem;
   color: #2f373a;
+}
+
+.search-box li:hover h4,
+.search-box li:hover .subTitle {
+  color: #fff;
 }
 
 .search-box .subTitle {

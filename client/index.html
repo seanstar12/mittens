@@ -22,7 +22,9 @@
       <a class="open" {{action showActions}}><i class="icon-chevron-right"></i><span> Open</span></a>
     </div>
     <div class="actions">
-      <a {{action addItem}}>Add</a>
+      {{#unless inLibrary}}
+        <a {{action requestItem}}><i class="icon-cloud-download"></i> Add</a>
+      {{/unless}}
     </div>
   </script>
   
