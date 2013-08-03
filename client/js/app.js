@@ -3,8 +3,10 @@ Mittens = Ember.Application.create({
 });
 
 DS.SocketAdapter.map('Mittens.Movie', {
-  primary_key: 'tmdb_id',
+  primaryKey: 'tmdb_id',
   title: { key: 'original_title'},
+  inLibrary: { key: 'in_library'},
+  inWanted: { key: 'in_wanted'},
 });
 
 // Create ember-data datastore and define our adapter
@@ -15,16 +17,6 @@ Mittens.store = DS.Store.create({
 Mittens.Movie = DS.Model.extend({
   title: DS.attr('string'),
   year: DS.attr('string'),
-});
-
-Mittens.MovieController = Ember.ObjectController.extend({});
-Mittens.MovieView = Ember.View.extend({});
-
-
-Mittens.MoviesRoute = Ember.Route.extend({
-  model: function() {
-    return Mittens.Movie.find({search: 'super'});
-  }
 });
 
 Mittens.SearchBoxComponent = Ember.Component.extend({
