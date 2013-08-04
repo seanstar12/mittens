@@ -77,5 +77,6 @@ Mittens.SearchField = Ember.TextField.extend({
   },
   insertNewline: function() {
     this.get('controller').submit();
+    this.$().blur();
   },
 });
