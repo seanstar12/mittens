@@ -15,11 +15,23 @@
     {{outlet main}}
   </script>
 
-  <script type="text/x-handlebars" id="components/search-item">
+  <script type="text/x-handlebars" id="searchCategory">
+    <header>
+      <h3>{{view.title}}</h3>
+      {{#if content.isLoaded}}
+        <div class="num-results">{{content.length}}</div>
+      {{else}}
+        <div class="loading"><i class="icon-spinner icon-spin"></i></div>
+      {{/if}}
+    </header>
+    {{collection Mittens.SearchCategoryList contentBinding="content"}}
+  </script>
+
+  <script type="text/x-handlebars" id="searchItem">
     <div class="body">
-      <h4>{{item.title}}</h4>
-      <span class="subTitle">{{item.year}}</span>
-      <a class="open" {{action showActions}}><i class="icon-chevron-right"></i><span> Open</span></a>
+      <h4>{{title}}</h4>
+      <span class="subTitle">{{year}}</span>
+      <a class="open" {{action toggleActions}}><i class="icon-chevron-right"></i><span> Open</span></a>
     </div>
     <div class="actions">
       {{#unless inLibrary}}
@@ -35,15 +47,7 @@
       <button {{action submit}}><i class="icon-search"></i><span> Search</span></button>
     </header>
     {{#if hasSearched}}
-      <div class="results">
-      {{#if content.isLoaded}}
-          <h3>Movies</h3>
-          {{#collection contentBinding="content" tagName="ul" }}
-            {{search-item item=this}}
-          {{/collection}}
-      {{else}}
-        <i class="icon-spinner icon-spin icon-large loading"></i>
-      {{/if}}
+        {{view Mittens.SearchCategoryView contentBinding="content"}}
       </div>
     {{/if}}
   </script>

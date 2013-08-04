@@ -31,9 +31,39 @@ Mittens.SearchBoxComponent = Ember.Component.extend({
   },
 });
 
+Mittens.SearchItemView = Ember.View.extend({
+  templateName: 'searchItem',
+  classNameBindings: ['isOpen:open'],
+  isOpen: false,
+  toggleActions: function() {
+     this.toggleProperty('isOpen');
+  },
+});
+
+Mittens.SearchCategoryView = Ember.View.extend({
+  classNames: ['category'],
+  title: 'Movies',
+  status: function() {
+    if(this.get('content.isLoaded')) {
+      return this.get('content.length');
+    } else {
+      return 'loading';
+    }
+  }.property('content.isLoaded'),
+  templateName: 'searchCategory',
+});
+
+Mittens.SearchCategoryList = Ember.CollectionView.extend({
+  tagName: 'ul',
+  itemViewClass: Mittens.SearchItemView,
+});
+
 Mittens.SearchItemComponent = Ember.Component.extend({
   classNameBindings: ['isOpen:open'],
   isOpen: false,
+  toggleActions: function() {
+     this.toggleProperty('isOpen');
+  },
 });
 
 Mittens.SearchField = Ember.TextField.extend({
