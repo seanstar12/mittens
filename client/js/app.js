@@ -32,6 +32,7 @@ Mittens.SearchBoxComponent = Ember.Component.extend({
 });
 
 Mittens.SearchItemView = Ember.View.extend({
+  templateName: 'searchItem',
   classNameBindings: ['isOpen:open'],
   isOpen: false,
   toggleActions: function() {
@@ -39,10 +40,22 @@ Mittens.SearchItemView = Ember.View.extend({
   },
 });
 
-Mittens.CategorySearchList = Ember.CollectionView.extend({
+Mittens.SearchCategoryView = Ember.View.extend({
+  classNames: ['category'],
+  title: 'Movies',
+  status: function() {
+    if(this.get('content.isLoaded')) {
+      return this.get('content.length');
+    } else {
+      return 'loading';
+    }
+  }.property('content.isLoaded'),
+  templateName: 'searchCategory',
+});
+
+Mittens.SearchCategoryList = Ember.CollectionView.extend({
   tagName: 'ul',
-  category: '',
-//  itemViewClass: Mittens.SearchItemView,
+  itemViewClass: Mittens.SearchItemView,
 });
 
 Mittens.SearchItemComponent = Ember.Component.extend({
