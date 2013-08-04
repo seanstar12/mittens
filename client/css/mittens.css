@@ -14,7 +14,7 @@ html.touch {
 
 body {
   height: 100%;
-  background: #eee url(../images/bg_texture.jpeg) fixed;
+  background: #eee url(../images/bg_texture.jpg) fixed;
   display: -webkit-flex;
   display: flex;
 }
