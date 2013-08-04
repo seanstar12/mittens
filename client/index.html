@@ -15,11 +15,11 @@
     {{outlet main}}
   </script>
 
-  <script type="text/x-handlebars" id="components/search-item">
+  <script type="text/x-handlebars" id="searchItem">
     <div class="body">
       <h4>{{item.title}}</h4>
       <span class="subTitle">{{item.year}}</span>
-      <a class="open" {{action showActions}}><i class="icon-chevron-right"></i><span> Open</span></a>
+      <a class="open" {{action toggleActions}}><i class="icon-chevron-right"></i><span> Open</span></a>
     </div>
     <div class="actions">
       {{#unless inLibrary}}
@@ -37,12 +37,12 @@
     {{#if hasSearched}}
       <div class="results">
       {{#if content.isLoaded}}
-          <h3>Movies</h3>
-          {{#collection contentBinding="content" tagName="ul" }}
-            {{search-item item=this}}
-          {{/collection}}
+        <h3>Movies</h3>
+        {{#collection CategorySearchList contentBinding="content"}}
+          {{title}}
+        {{/collection}}
       {{else}}
-        <i class="icon-spinner icon-spin icon-large loading"></i>
+        <div class="loading"><i class="icon-spinner icon-spin icon-large"></i></div>
       {{/if}}
       </div>
     {{/if}}
@@ -52,8 +52,8 @@
   <script type="text/javascript" src="js/lib/modernizr.touch-only.js"></script>
   <script type="text/javascript" src="js/lib/socket.io.min.js"></script>
   <script type="text/javascript" src="js/lib/handlebars-1.0.0-rc.4.js"></script>
-  <script type="text/javascript" src="js/lib/ember-1.0.0-rc.6.1.min.js"></script>
-  <script type="text/javascript" src="js/lib/ember-data-latest.min.js"></script>
+  <script type="text/javascript" src="js/lib/ember-1.0.0-rc.6.1.js"></script>
+  <script type="text/javascript" src="js/lib/ember-data-latest.js"></script>
   <script type="text/javascript" src="js/socket-io-ds-adapter.js"></script>
   <script type="text/javascript" src="js/templates.js"></script>
   <script type="text/javascript" src="js/app.js"></script>
