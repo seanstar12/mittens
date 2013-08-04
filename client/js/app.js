@@ -40,7 +40,8 @@ Mittens.SearchField = Ember.TextField.extend({
   name: 'search',
   viewName: 'search',
   placeholder: 'Search',
-  attributeBinding: ['autofocus'],
+  attributeBindings: ['autocomplete'],
+  autocomplete: 'off',
   didInsertElement: function() {
     this.$().focus();
   },
