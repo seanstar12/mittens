@@ -8,8 +8,8 @@
 //put > movies/:id   -> added: true
 //put > tvs/:id      -> result: success
 
-var app = require('express')(), 
-    express = require('express'),
+var express = require('express'),
+    app = require('express')(), 
     http = require('http'),
     server = http.createServer(app),
     io = require('socket.io').listen(server),
@@ -21,12 +21,16 @@ var load = mittens.loadProviders();
 
 load.on('loaded', startApp);
 
-function startApp(providers) {
 
+
+function startApp(providers) {
+  //mittens.initDb(); 
   app.use(express.static(__dirname + '/../client'));
   app.start = app.listen = function(){
     return server.listen.apply(server, arguments)
   }
+ 
+  app.start(8083);
   
   io.sockets.on('connection', function(socket){
     socket.on('addProviders', function(data){
@@ -67,5 +71,4 @@ function startApp(providers) {
     }).end();
   });
   
-  app.start(8083);
 };

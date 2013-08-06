@@ -33,11 +33,11 @@ Mittens.prototype.loadProviders = function () {
 }
 
 Mittens.prototype.addProviders = function (arryProviders) {
-  dbHelper.addProviders(arryProviders, cb);
+  dbHelper.addProviders(arryProviders);
 }
 
 Mittens.prototype.rmProvider = function (name) {
-  dbHelper.rmProvider(name, cb);
+  dbHelper.rmProvider(name);
 }
 
 Mittens.prototype.listProviders = function () {
@@ -47,7 +47,9 @@ Mittens.prototype.listProviders = function () {
 Mittens.prototype.closeDb = function () {
   dbHelper.closeDb();
 }
-
+Mittens.prototype.initDb = function () {
+  dbHelper.initDb();
+}
 
 
 
