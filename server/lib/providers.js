@@ -1,5 +1,3 @@
-var config = require('./config');
-
 var providers =  {
   SickBeard : {
     active: true,
@@ -8,6 +6,16 @@ var providers =  {
     sort: "show",
     config: {},
     FIND_QUERY: function(query) {
+      console.log('SickBeard.FIND_QUERY: '+ query.search);
+      var safeQuery = encodeURIComponent(query.search);
+      
+      return {
+        host: this.config.host,
+        port: this.config.port,
+        path: '/api/' + this.config.api + '/?cmd=sb.searchtvdb&lang=en&name=' + safeQuery
+      }
+    },
+    FI: function(query) {
       console.log('SickBeard.FIND_QUERY: '+ query.search);
       var safeQuery = encodeURIComponent(query.search);
       
@@ -44,8 +52,8 @@ var providers =  {
     sort: "movie",
     config: {},
     FIND_QUERY: function(query){
-      console.log('CouchPotato.FIND_QUERY: '+ query.search);
-      var safeQuery = encodeURIComponent(query.search),
+      console.log('CouchPotato.FIND_QUERY: '+ query.q);
+      var safeQuery = encodeURIComponent(query.q),
           path =  '/api/' + this.config.api + '/movie.search/?q=' + safeQuery;
      
       return {
@@ -66,11 +74,11 @@ var providers =  {
     },
     FIND_MANY: function(query){
       // Find from couchpotato manager
-      console.log('CouchPotato.FIND_MANY: ');
+      console.log('CouchPotato.FIND_MANY: ' + query.q);
       var path = '/api/' + this.config.api + '/movie.list/?';
       
       if (query.status) path += 'status='+query.status;
-      if (query.search) path += '&search='+encodeURIComponent(query.search);
+      if (query.q) path += '&search='+encodeURIComponent(query.q);
 
       return {
         host: this.config.host,
@@ -90,10 +98,11 @@ var providers =  {
     }
   },
   SABnzbd: {
-    active: true,
+    active: false,
     title: "SABnzbd",
     alias: "NZBs",
     sort: "nzb",
+    config: {},
     FIND_ALL: function(){
       console.log('SABnzbd.FIND_ALL');
       return {
@@ -113,9 +122,5 @@ var providers =  {
     } 
   }
 }
-
-providers.SickBeard.config = config.SickBeard;
-providers.CouchPotato.config = config.CouchPotato;
-providers.SABnzbd.config = config.SABnzbd;
 
 module.exports = providers;
