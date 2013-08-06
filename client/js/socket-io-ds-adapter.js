@@ -211,7 +211,7 @@
       this.set('requests', {});
       
       //var ws = io.connect('//' + '10.0.1.8:8080');
-      var ws = io.connect('//' + location.host + ':8080');
+      var ws = io.connect('//' + location.host + ':8099');
       
       // For all standard socket.io client events, see https://github.com/LearnBoost/socket.io-client
       

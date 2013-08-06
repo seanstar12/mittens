@@ -1,7 +1,6 @@
 //Search for the things
 //get > /movie/?q=this -> {movies: {}}
 //get > /tv/?q=this    -> {tv: {}}
-
 //List all the local things
 //get > /movies         -> {movies: {LOCAL ONLY}}
 //get > /tvs            -> {tv}

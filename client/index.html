@@ -10,19 +10,33 @@
 </head>
 <body class="frame">
   <div id="mittens"></div>
-  <script type="text/x-handlebars" id="application">
+  <script type="text/x-handlebars" id="index">
     {{search-box label='What would you like to watch today?'}}
     {{outlet main}}
   </script>
 
-  <script type="text/x-handlebars" id="components/search-item">
+  <script type="text/x-handlebars" id="searchCategory">
+    <header>
+      <h3>{{view.title}}</h3>
+      {{#if content.isLoaded}}
+        <div class="num-results">{{content.length}}</div>
+      {{else}}
+        <div class="loading"><i class="icon-spinner icon-spin"></i></div>
+      {{/if}}
+    </header>
+    {{collection Mittens.SearchCategoryList contentBinding="content"}}
+  </script>
+
+  <script type="text/x-handlebars" id="searchItem">
     <div class="body">
-      <h4>{{item.title}}</h4>
-      <span class="subTitle">{{item.year}}</span>
-      <a class="open" {{action showActions}}><i class="icon-chevron-right"></i><span> Open</span></a>
+      <h4>{{title}}</h4>
+      <span class="subTitle">{{year}}</span>
+      <a class="open" {{action toggleActions}}><i class="icon-chevron-right"></i><span> Open</span></a>
     </div>
     <div class="actions">
-      <a {{action addItem}}>Add</a>
+      {{#unless inLibrary}}
+        <a {{action requestItem}}><i class="icon-cloud-download"></i> Add</a>
+      {{/unless}}
     </div>
   </script>
   
@@ -32,10 +46,9 @@
       {{view Mittens.SearchField valueBinding='query' placeholderBinding='label'}}
       <button {{action submit}}><i class="icon-search"></i><span> Search</span></button>
     </header>
-    {{#if content.length}}
-      {{#collection contentBinding="content" tagName="ul" }}
-        {{search-item item=this}}
-      {{/collection}}
+    {{#if hasSearched}}
+        {{view Mittens.SearchCategoryView contentBinding="content"}}
+      </div>
     {{/if}}
   </script>
 
