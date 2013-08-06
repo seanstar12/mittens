@@ -55,12 +55,19 @@ Mittens.SearchBoxComponent = Ember.Component.extend({
   },
 });
 
+Mittens.SearchItemController = Ember.ObjectController.extend({
+  isOpen: false,
+  toggle: function() {
+     this.set('isOpen',!this.get('isOpen'));
+  },
+});
+
 Mittens.SearchItemView = Ember.View.extend({
+  //controller: Mittens.SearchItemController,
   templateName: 'searchItem',
   classNameBindings: ['isOpen:open'],
-  isOpen: false,
-  toggleActions: function() {
-     this.toggleProperty('isOpen');
+  toggle: function() {
+     this.set('isOpen',!this.get('isOpen'));
   },
 });
 

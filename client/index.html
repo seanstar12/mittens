@@ -28,15 +28,20 @@
   </script>
 
   <script type="text/x-handlebars" id="searchItem">
-    <div class="body">
+    <div class="body" {{action 'toggle'}}>
       <h4>{{title}}</h4>
       <span class="subTitle">{{year}}</span>
-      <a class="open" {{action toggleActions}}><i class="icon-chevron-right"></i><span> Open</span></a>
+      <a class="toggle-view">
+        <i {{bindAttr class="isOpen:icon-chevron-down:icon-chevron-right"}}></i>
+        <span> Open</span>
+      </a>
     </div>
     <div class="actions">
-      {{#unless inLibrary}}
-        <a {{action requestItem}}><i class="icon-cloud-download"></i> Add</a>
-      {{/unless}}
+      {{#if inLibrary}}
+        <a {{action 'playItem'}}><i class="icon-play"></i> Play</a>
+      {{else}}
+        <a {{action 'requestItem'}}><i class="icon-cloud-download"></i> Add</a>
+      {{/if}}
     </div>
   </script>
   

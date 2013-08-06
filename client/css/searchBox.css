@@ -131,11 +131,11 @@
   margin: 0.6rem 0;
 }
 
-.search-box .open {
+.search-box .toggle-view {
   margin: 0.82rem;
 }
 
-.search-box .open span {
+.search-box .toggle-view span {
   font-size: 0;
   line-height: 0;
   text-indent: -1000px;
