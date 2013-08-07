@@ -33,11 +33,11 @@ var providers =  {
       }
     },
     UPDATE: function(query){
-      console.log('SickBeard.UPDATE: '+ query.tvbid);
+      console.log('SickBeard.UPDATE: '+ query);
       return {
         host: this.config.host,
         port: this.config.port,
-        path: '/api/'+ this.config.api + '/?cmd=addnew&tvdbid='+query.tvbid
+        path: '/api/'+ this.config.api + '/?cmd=addnew&tvdbid='+query
       }
     },
     listShow: function(id){
@@ -87,14 +87,25 @@ var providers =  {
         path: path
       }
     },
+    FIND: function(id){
+      console.log('CouchPotato.FIND_QUERY: '+ id);
+      var safeQuery = encodeURIComponent(id),
+          path =  '/api/' + this.config.api + '/movie.search/?q=' + id;
+     
+      return {
+        host: this.config.host,
+        port: this.config.port,
+        path: path
+      }
+    },
     //Using update so we don't have to mess with socket plugin settings.
     UPDATE: function(query){
-      console.log('CouchPotato.UPDATE: '+ query.imdb);
+      console.log('CouchPotato.UPDATE: '+ query);
       
       return {
         host: this.config.host,
         port: this.config.port,
-        path: '/api/' + this.config.api + '/movie.add/?identifier=' + query.imdb
+        path: '/api/' + this.config.api + '/movie.add/?identifier=' + query
       }
     },
     FIND_MANY: function(query){

@@ -7,16 +7,12 @@ exports.loadConfig = function (providers, cb) {
   db.all("SELECT * FROM sqlite_master WHERE type='table'" ,function (err, rows){
     if(!rows[0]) {
       console.log('Table Doesn\'t Exist: I\'m going to create it.');
-      db.run("CREATE TABLE providers (name TEXT, host TEXT, port TEXT, api TEXT)");
+      db.run("CREATE TABLE providers (name TEXT, host TEXT, port TEXT, api TEXT, active TEXT)");
     } else {
       db.all("SELECT rowid AS id, * FROM providers", function (err, rows){
-        for ( var row in rows ) {
-          providers[rows[row].name]['config'] = {host:rows[row].host,port:rows[row].port,api:rows[row].api};
-        }
+        cb(rows); //bring config out into main scope 
       });
     }
-    
-    cb(providers); 
   });
 };
 
@@ -53,10 +49,11 @@ exports.addProviders = function (conf) {
     if (   item.name != '' 
         && item.host != '' 
         && item.port != '' 
-        && item.api != '') {
+        && item.api != ''
+        && item.active != '') {
       
       console.log('Adding to DB');
-      db.run("INSERT INTO providers VALUES (?,?,?,?)",[item.name,item.host,item.port,item.api]);
+      db.run("INSERT INTO providers VALUES (?,?,?,?,?)",[item.name,item.host,item.port,item.api,item.active]);
     }
   }
   db.close();
