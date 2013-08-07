@@ -1,7 +1,7 @@
 Mittens!
 ===
  
-![Imgur](http://i.imgur.com/clVg24l.png)
+![Imgur](http://i.imgur.com/UhjQot1.png)
 
 A grandmother-proof interface for Sick-Beard, CouchPotato, Headphones, and SABnzbd.
 
@@ -17,11 +17,13 @@ Our Goal:
 
 
 How to Run:
-
-  - Put client in a web accessable directory
+  - install node moudles ( express, socket.io, and sqlite3 ) [npm install {each one}]
   - run node server/app.js (we don't know what we're doing yet)
-  - Move server/config.js.sample to server/config.js
-  - point browser to 'client/index.html'
+  - load up 'localhost:8083';
+  - we're working on the settings page. it'll be up when it's ready.
+    - If you really want to run it, add configs with these in your browser.
+      var socket = io.connect('127.0.0.1:8083'); 
+      socket.emit('addProviders',[{name:'CouchPotato',host:'',port:'',api:''},{name:'SickBeard',host:'',port:'',api:''}]);
   - Laugh at the progress that hasn't been made yet!
 
 What Doesn't Work:
