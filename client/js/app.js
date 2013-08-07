@@ -2,16 +2,40 @@ Mittens = Ember.Application.create({
   rootElement: '#mittens',
 });
 
-DS.SocketAdapter.map('Mittens.Movie', {
+DS.RESTAdapter.map('Mittens.Movie', {
   primaryKey: 'tmdb_id',
   title: { key: 'original_title'},
-  inLibrary: { key: 'in_library'},
-  inWanted: { key: 'in_wanted'},
+  //inLibrary: { key: 'in_library'},
+  //inWanted: { key: 'in_wanted'},
+});
+
+// there must be a better way to teach the REST serializer about empty and success
+Mittens.ExpressSerializer = DS.RESTSerializer.extend({
+  init: function() {
+    this._super();
+    var get = Ember.get;
+
+    if (!get(this, 'transforms')) {
+      this.set('transforms', DS.JSONTransforms);
+    }
+
+    this.sideloadMapping = Ember.Map.create();
+    this.metadataMapping = Ember.Map.create();
+
+    this.configure({
+      meta: 'meta',
+      since: 'since',
+      empty: 'empty',
+      sucess: 'success'
+    });
+  },
 });
 
 // Create ember-data datastore and define our adapter
 Mittens.store = DS.Store.create({
-  adapter: DS.SocketAdapter.create({})
+  adapter: DS.RESTAdapter.create({
+    serializer: Mittens.ExpressSerializer,
+  })
 });
 
 Mittens.Movie = DS.Model.extend({
@@ -26,7 +50,7 @@ Mittens.SearchBoxComponent = Ember.Component.extend({
   query: '',
   hasSearched: false,
   submit: function() {
-    this.set('content',Mittens.Movie.find({search: this.get('query')}));
+    this.set('content',Mittens.Movie.find({q: this.get('query')}));
     this.set('hasSearched', true);
   },
 });
