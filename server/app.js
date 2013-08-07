@@ -13,39 +13,40 @@ var express = require('express'),
     http = require('http'),
     server = http.createServer(app),
     io = require('socket.io').listen(server),
-    Mittens = require('./lib/mittens'),
-    apiKey = 'gK3721';
+    Mittens = require('./lib/mittens');
 
 var mittens = new Mittens();
-var load = mittens.loadProviders();
+var load = mittens.load();
 
 load.on('loaded', startApp);
 
-
-
-function startApp(providers) {
+function startApp(appData) {
   //mittens.initDb(); 
   app.use(express.static(__dirname + '/../client'));
   app.start = app.listen = function(){
     return server.listen.apply(server, arguments)
   }
- 
   app.start(8083);
   
   io.sockets.on('connection', function(socket){
     socket.on('addProviders', function(data){
       console.log('Attempting to add providers');
-      (apiKey == data.apiKey) ? mittens.addProviders(data.providers) : console.log('Invalid API');
+      mittens.addProviders(data.providers);
+    });
+    
+    socket.on('addProvider', function(data){
+      console.log('Attempting to add provider');
+      mittens.addProvider(data);
     });
 
-    socket.on('rmProvider', function(data){
+    socket.on('rmProvider', function(name){
       console.log('Attempting to remove provider');
-      (apiKey == data.apiKey) ? mittens.rmProvider(data.name) : console.log('Invalid API');
+      mittens.rmProvider(name);
     });
 
     socket.on('listProviders', function (data) {
       console.log('Attempting to list providers');
-      (apiKey == data.apiKey) ? mittens.listProviders() : console.log('Invalid API');
+      mittens.listProviders();
     });
 
   });

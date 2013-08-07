@@ -18,14 +18,14 @@ Mittens.prototype = Object.create(events.EventEmitter.prototype, {
 });
 
 
-Mittens.prototype.loadProviders = function () {
+Mittens.prototype.load = function () {
   var self = this;
   
-  self.load = function(cb){
+  self.func = function(cb){
     dbHelper.loadConfig(providers, cb);
   };
 
-  self.load(function(data) {
+  self.func(function(data) {
     self.emit('loaded', data);
   });
 
@@ -34,6 +34,10 @@ Mittens.prototype.loadProviders = function () {
 
 Mittens.prototype.addProviders = function (arryProviders) {
   dbHelper.addProviders(arryProviders);
+}
+
+Mittens.prototype.addProvider = function (conf) {
+  dbHelper.addProvider(providers, conf);
 }
 
 Mittens.prototype.rmProvider = function (name) {

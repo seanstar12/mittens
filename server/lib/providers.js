@@ -5,6 +5,13 @@ var providers =  {
     alias: "Tv Shows",
     sort: "show",
     config: {},
+    check: function(obj){
+      return {
+        host: obj.host,
+        port: obj.port,
+        path: '/api/' + obj.api + '/?cmd=sb.ping'
+      }
+    },
     FIND_QUERY: function(query) {
       console.log('SickBeard.FIND_QUERY: '+ query.search);
       var safeQuery = encodeURIComponent(query.search);
@@ -51,6 +58,24 @@ var providers =  {
     alias: "Movies",
     sort: "movie",
     config: {},
+    check: function(obj){
+      return {
+        host: obj.host,
+        port: obj.port,
+        path: '/api/' + obj.api + '/app.available/'
+      }
+    },
+    checkParse: function(obj){
+      var temp = '';
+    
+      try {
+        temp = JSON.parse(obj);
+        return temp.success;
+      } catch (err) {
+        console.log(err);
+        return false;
+      }
+    },
     FIND_QUERY: function(query){
       console.log('CouchPotato.FIND_QUERY: '+ query.q);
       var safeQuery = encodeURIComponent(query.q),
