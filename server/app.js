@@ -13,29 +13,25 @@ var express = require('express'),
     http = require('http'),
     server = http.createServer(app),
     io = require('socket.io').listen(server),
-    Mittens = require('./lib/mittens'),
-    provider = require('./lib/provider'),
-    CouchPotato = require('./lib/couchpotato');
-
-
+    Mittens = require('./lib/mittens');
 
 var mittens = new Mittens();
 var load = mittens.load();
-var providerList = {};
-
+var service = {};
 
 load.on('loaded', startApp);
 
-function startApp(providers) {
-  //mittens.initDb();
+function startApp(appData) {
+  
   app.use(express.static(__dirname + '/../client'));
   app.start = app.listen = function(){
     return server.listen.apply(server, arguments)
   }
   app.start(8083);
   
-  var cp = new CouchPotato();
-  cp.init(providers[0]); 
+  if (appData.providers){
+    var p = mittens.build(appData.providers);
+  }
   
   io.sockets.on('connection', function(socket){
     socket.on('addProviders', function(data){
@@ -62,34 +58,27 @@ function startApp(providers) {
   
   
   app.get('/movies', function (req, res) {
-    http.request(cp.buildReturn('find',req.query.q), function(resp){
-      cp.chunk(resp, res);
+    http.request(p.movie.buildReturn('find',req.query.q), function(resp){
+      p.movie.chunk(resp, res);
     }).end();
   });
- 
- 
+
   app.get('/movies/:id', function(req, res) {
-    http.request(cp.buildReturn('find',req.params.id), function(resp){
-      cp.chunk(resp, res);
+    http.request(p.movie.buildReturn('find',req.params.id), function(resp){
+      p.movie.chunk(resp, res);
     }).end();
   });
 
   app.put('/movies/:id', function(req, res) {
     console.log(req.params.id);
-    http.request(cp.buildReturn('update',req.params.id), function(resp){
-      cp.chunk(resp, res);
+    http.request(p.movie.buildReturn('update',req.params.id), function(resp){
+      p.movie.chunk(resp, res);
     }).end();
   });
 
-//
-//  app.get('/movie', function (req, res) {
-//    http.request(providers.CouchPotato.FIND_MANY(req.query), function(resp){
-//      var str = '';
-//      resp.on('data', function (chunk) { str += chunk; });
-//      resp.on('end', function () {
-//        res.send(JSON.parse(str));
-//      });
-//    }).end();
-//  });
-  
+  app.get('/settings', function(req, res){
+    res.send(appData);
+  });
+
 };
+

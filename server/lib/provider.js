@@ -6,6 +6,7 @@ Provider.prototype.init = function(obj) {
   this.port  = obj.port;
   this.api   = obj.api;
   this.active = obj.active;
+  this.alias = obj.alias;
 }
 
 Provider.prototype.buildReturn = function(ref, q) {
@@ -27,4 +28,3 @@ Provider.prototype.chunk = function(resp, res){
 }
 
 module.exports = Provider;
-

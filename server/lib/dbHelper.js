@@ -1,16 +1,16 @@
 var sql = require('sqlite3').verbose(),
     http = require('http');
 
-exports.loadConfig = function (providers, cb) {
+exports.loadConfig = function (cb) {
   var db = new sql.Database('mittens.db');
 
-  db.all("SELECT * FROM sqlite_master WHERE type='table'" ,function (err, rows){
-    if(!rows[0]) {
+  db.all("SELECT * FROM sqlite_master WHERE type='table'" ,function (err, settings){
+    if(!settings[0]) {
       console.log('Table Doesn\'t Exist: I\'m going to create it.');
-      db.run("CREATE TABLE providers (name TEXT, host TEXT, port TEXT, api TEXT, active TEXT)");
+      db.run("CREATE TABLE providers (name TEXT,host TEXT,port TEXT,api TEXT,active TEXT,alias TEXT)");
     } else {
-      db.all("SELECT rowid AS id, * FROM providers", function (err, rows){
-        cb(rows); //bring config out into main scope 
+      db.all("SELECT rowid AS id, * FROM providers", function (err, providers){
+        cb({'settings': settings, 'providers':providers}); //bring config out into main scope 
       });
     }
   });
@@ -53,7 +53,8 @@ exports.addProviders = function (conf) {
         && item.active != '') {
       
       console.log('Adding to DB');
-      db.run("INSERT INTO providers VALUES (?,?,?,?,?)",[item.name,item.host,item.port,item.api,item.active]);
+      db.run("INSERT INTO providers VALUES (?,?,?,?,?,?)",
+        [item.name,item.host,item.port,item.api,item.active,item.alias]);
     }
   }
   db.close();
