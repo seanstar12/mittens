@@ -8,10 +8,6 @@ html {
   font-weight: 300;
 }
 
-html.touch {
-  font-size: 1.3em;
-}
-
 body {
   height: 100%;
   background: #eee url(../images/bg_texture.jpg) fixed;
