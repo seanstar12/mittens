@@ -24,7 +24,13 @@
         <div class="loading"><i class="icon-spinner icon-spin"></i></div>
       {{/if}}
     </header>
-    {{collection Mittens.SearchCategoryList contentBinding="content"}}
+    {{#if content.isLoaded}}
+      <ul class="list">
+      {{#each content}}
+        {{render "searchItem" this}}
+      {{/each}}
+      </ul>
+    {{/if}}
   </script>
 
   <script type="text/x-handlebars" id="searchItem">
@@ -36,12 +42,24 @@
         <span> Open</span>
       </a>
     </div>
-    <div class="actions">
+    <div {{bindAttr class="isOpen:open :actions"}}>
+      <div class="content">
+      <div class="left">
+        <div class="plot">{{plot}}</div>
+        <ul>
+          <li class="genre">{{genres}}</li>
+          <li class="runtime">Runtime: {{runtime}} Min</li>
+        </ul>
+      </div>
+      <div class="right"><img src="{{unbound poster}}"></div>
+      </div>
+      <footer>
       {{#if inLibrary}}
         <a {{action 'playItem'}}><i class="icon-play"></i> Play</a>
       {{else}}
-        <a {{action 'requestItem'}}><i class="icon-cloud-download"></i> Add</a>
+        <a {{action 'request'}}><i class="icon-cloud-download"></i> Add</a>
       {{/if}}
+      </footer>
     </div>
   </script>
   
@@ -62,6 +80,7 @@
   <script type="text/javascript" src="js/lib/handlebars-1.0.0-rc.4.js"></script>
   <script type="text/javascript" src="js/lib/ember-1.0.0-rc.6.1.min.js"></script>
   <script type="text/javascript" src="js/lib/ember-data-latest.min.js"></script>
+  <script type="text/javascript" src="js/lib/MediaClass.js"></script>
   <script type="text/javascript" src="js/socket-io-ds-adapter.js"></script>
   <script type="text/javascript" src="js/templates.js"></script>
   <script type="text/javascript" src="js/app.js"></script>

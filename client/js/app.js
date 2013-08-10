@@ -2,8 +2,26 @@ Mittens = Ember.Application.create({
   rootElement: '#mittens',
 });
 
+DS.RESTAdapter.registerTransform('arraytostring', {
+  serialize: function(value) {
+    return Em.isNone(value) ? [] : value;
+  },
+  deserialize: function(value) {
+    return Em.isNone(value) ? '' : value.toArray().join(', ');
+  }
+});
+
+DS.RESTAdapter.registerTransform('object', {
+  serialize: function(value) {
+    return Em.isNone(value) ? {} : value;
+  },
+  deserialize: function(value) {
+    return Em.isNone(value) ? {} : value;
+  }
+});
+
 DS.RESTAdapter.map('Mittens.Movie', {
-  primaryKey: 'tmdb_id',
+  primaryKey: 'runtime',
   title: { key: 'original_title'},
   //inLibrary: { key: 'in_library'},
   //inWanted: { key: 'in_wanted'},
@@ -40,7 +58,16 @@ Mittens.store = DS.Store.create({
 
 Mittens.Movie = DS.Model.extend({
   title: DS.attr('string'),
+  imdb: DS.attr('string'),
   year: DS.attr('string'),
+  plot: DS.attr('string'),
+  isRequested: DS.attr('boolean'),
+  runtime: DS.attr('number'),
+  genres: DS.attr('arraytostring'),
+  images: DS.attr('object'),
+  poster: function () {
+    return this.get('images').poster[0];
+  }.property('images'),
 });
 
 Mittens.SearchBoxComponent = Ember.Component.extend({
@@ -57,18 +84,36 @@ Mittens.SearchBoxComponent = Ember.Component.extend({
 
 Mittens.SearchItemController = Ember.ObjectController.extend({
   isOpen: false,
+  didInsertElement: function() {
+    this.get('content').one('didLoad', function() {
+       alert("I LOADED!");
+    });
+  },
   toggle: function() {
      this.set('isOpen',!this.get('isOpen'));
+  },
+  request: function() {
+    var store = Mittens.get('store');
+
+    var item = this.get('content');
+    var transaction = store.transaction();
+    transaction.add(item);
+
+    item.set('isRequested', true);
+    item.set('id', item.get('imdb'));
+    console.log('isError: '+item.get('isError'));
+    console.log('isDirty: '+item.get('isDirty'));
+    console.log(item);
+
+    transaction.commit();
+    store.commit();
+    console.log('commit');
   },
 });
 
 Mittens.SearchItemView = Ember.View.extend({
-  //controller: Mittens.SearchItemController,
+  tagName: 'li',
   templateName: 'searchItem',
-  classNameBindings: ['isOpen:open'],
-  toggle: function() {
-     this.set('isOpen',!this.get('isOpen'));
-  },
 });
 
 Mittens.SearchCategoryView = Ember.View.extend({
@@ -111,3 +156,5 @@ Mittens.SearchField = Ember.TextField.extend({
     this.$().blur();
   },
 });
+
+MediaClass("small", ".search-box:media(this-max-width: 30em)");

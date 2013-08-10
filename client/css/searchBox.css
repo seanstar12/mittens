@@ -3,6 +3,11 @@
   min-width: 14em;
   margin: 1rem;
   box-sizing: border-box;
+  transition: margin 0.2s linear;
+}
+
+.search-box.small {
+  margin: 0;
 }
 
 .search-box header {
@@ -84,19 +89,19 @@
   margin: 0.4em;
 }
 
-.search-box ul {
+.search-box .category > .list {
   margin: 0;
   padding: 0;
 }
 
-.search-box li {
+.search-box .list > li {
   display: block;
   border-bottom: 1px solid #dddddd;
   background-color: #fff;
   position: relative;
 }
 
-.search-box li:hover {
+.search-box .list > li:hover {
   background-color: #27a1c5;
   color: #fff;
 }
@@ -112,7 +117,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin: 0 0.5em 0 0;
   -webkit-flex: 1;
   flex: 1;
   margin: 0.82rem;
@@ -142,5 +146,67 @@
 }
 
 .search-box .actions {
+  overflow: hidden;
   display: none;
+  margin: 0.82rem;
+}
+
+.search-box .actions.open {
+  display: block;
+}
+
+.actions .content {
+  display: flex;
+  display: -webkit-flex;
+}
+
+.small .actions .content {
+  flex-direction: column-reverse;
+  -webkit-flex-direction: column-reverse;
+}
+
+.actions .left {
+  flex: 1;
+  -webkit-flex: 1;
+  min-width: 4em;
+}
+
+.actions .right {
+   min-width: 2em;
+}
+
+.actions .plot {
+    /* float: left; */
+    /* width: 65%; */
+    /* margin-left: 10px; */
+}
+.something {
+    height: 220px;
+}
+.leftSide {
+    float: left;
+    width: 65%;
+    margin-left: 13px;
+}
+.leftSide span {
+    display: block;
+    padding-top: 5px;
+}
+.sub {
+    font-size: 12px;
+    /* padding-left: 5px; */
+}
+a {
+    /* padding-left: 10px; */
+}
+.actions.showActions {
+    display: inline;
+}
+.addLink {
+    color: white;
+    background-color: rgb(0, 207, 0);
+    display: inline-block;
+    margin: 10px 0px 0px 10px;
+    border-radius: 6px;
+    padding: 10px 40px 10px 40px;
 }
