@@ -10,12 +10,13 @@ Provider.prototype.init = function(obj) {
 }
 
 Provider.prototype.buildReturn = function(ref, q) {
-  var term = encodeURIComponent(q);
+  var term = encodeURIComponent(q),
+      actionPath = this.url[ref];
    
   return {
     host: this.host,
     port: this.port,  
-    path: '/api/' + this.api + '/' + this.url[ref].str + term
+    path: '/api/' + this.api + '/' + actionPath.str + term
   }
 }
 
