@@ -119,19 +119,10 @@ Mittens.SearchItemView = Ember.View.extend({
 Mittens.SearchCategoryView = Ember.View.extend({
   classNames: ['category'],
   title: 'Movies',
-  status: function() {
-    if(this.get('content.isLoaded')) {
-      return this.get('content.length');
-    } else {
-      return 'loading';
-    }
-  }.property('content.isLoaded'),
   templateName: 'searchCategory',
-});
-
-Mittens.SearchCategoryList = Ember.CollectionView.extend({
-  tagName: 'ul',
-  itemViewClass: Mittens.SearchItemView,
+  filteredContent: function() {
+    return this.get('content').filterProperty('imdb');
+  }.property('content.@each').cacheable(),
 });
 
 Mittens.SearchItemComponent = Ember.Component.extend({

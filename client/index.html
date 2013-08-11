@@ -19,14 +19,16 @@
     <header>
       <h3>{{view.title}}</h3>
       {{#if content.isLoaded}}
-        <div class="num-results">{{content.length}}</div>
+        <div class="num-results">{{view.filteredContent.length}}</div>
       {{else}}
         <div class="loading"><i class="icon-spinner icon-spin"></i></div>
       {{/if}}
+      isUpdating: {{content.type}}
+      isLoaded: {{content.isLoaded}}
     </header>
     {{#if content.isLoaded}}
       <ul class="list">
-      {{#each content}}
+      {{#each view.filteredContent}}
         {{render "searchItem" this}}
       {{/each}}
       </ul>
