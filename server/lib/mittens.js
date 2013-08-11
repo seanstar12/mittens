@@ -6,7 +6,7 @@
 
   fs = require('fs');
 
-  Base = require('./Base').Base;
+  Base = require('./base').Base;
 
   prov = require('./provider');
 

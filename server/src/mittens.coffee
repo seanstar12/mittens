@@ -1,5 +1,5 @@
 fs = require 'fs'
-{Base} = require './Base'
+{Base} = require './base'
 prov = require './provider'
 
 class Mittens extends Base

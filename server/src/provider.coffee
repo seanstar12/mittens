@@ -1,4 +1,4 @@
-{Base} = require './Base'
+{Base} = require './base'
 http = require 'http'
 
 class Provider extends Base
