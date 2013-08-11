@@ -84,11 +84,6 @@ Mittens.SearchBoxComponent = Ember.Component.extend({
 
 Mittens.SearchItemController = Ember.ObjectController.extend({
   isOpen: false,
-  didInsertElement: function() {
-    this.get('content').one('didLoad', function() {
-       alert("I LOADED!");
-    });
-  },
   toggle: function() {
      this.set('isOpen',!this.get('isOpen'));
   },
@@ -123,14 +118,6 @@ Mittens.SearchCategoryView = Ember.View.extend({
   filteredContent: function() {
     return this.get('content').filterProperty('imdb');
   }.property('content.@each').cacheable(),
-});
-
-Mittens.SearchItemComponent = Ember.Component.extend({
-  classNameBindings: ['isOpen:open'],
-  isOpen: false,
-  toggleActions: function() {
-     this.toggleProperty('isOpen');
-  },
 });
 
 Mittens.SearchField = Ember.TextField.extend({
