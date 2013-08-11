@@ -47,6 +47,12 @@ Mittens.ExpressSerializer = DS.RESTSerializer.extend({
       sucess: 'success'
     });
   },
+  primaryKey: function(type) {
+    switch (type.toString()) {
+      case 'Mittens.Movie':
+        return 'imdb';
+    }
+  },
 });
 
 // Create ember-data datastore and define our adapter
@@ -95,14 +101,8 @@ Mittens.SearchItemController = Ember.ObjectController.extend({
     transaction.add(item);
 
     item.set('isRequested', true);
-    item.set('id', item.get('imdb'));
-    console.log('isError: '+item.get('isError'));
-    console.log('isDirty: '+item.get('isDirty'));
-    console.log(item);
 
     transaction.commit();
-    store.commit();
-    console.log('commit');
   },
 });
 
