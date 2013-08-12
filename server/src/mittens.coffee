@@ -37,11 +37,14 @@ class Mittens extends Base
     return types
         
   createProviderObj: ->
+    console.log 'Create Provider Objects'
     temp = {}
     providers = do @sortProviders
     
-    temp.tv = new prov.SickBeard providers.tv
-    temp.movie = new prov.CouchPotato providers.movie
+    if providers.tv
+      temp.tv = new prov.SickBeard providers.tv
+    if providers.movie
+      temp.movie = new prov.CouchPotato providers.movie
 
     this.emit 'ready', temp
 

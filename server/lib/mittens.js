@@ -86,10 +86,15 @@
 
     Mittens.prototype.createProviderObj = function() {
       var providers, temp;
+      console.log('Create Provider Objects');
       temp = {};
       providers = this.sortProviders();
-      temp.tv = new prov.SickBeard(providers.tv);
-      temp.movie = new prov.CouchPotato(providers.movie);
+      if (providers.tv) {
+        temp.tv = new prov.SickBeard(providers.tv);
+      }
+      if (providers.movie) {
+        temp.movie = new prov.CouchPotato(providers.movie);
+      }
       return this.emit('ready', temp);
     };
 

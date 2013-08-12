@@ -20,7 +20,7 @@ function startMe(aData) {
   var tv = aData.tv,
       movie = aData.movie
       apiVersion = sid.getVersion().api;
-      
+  
   app.use(express.bodyParser()); 
   app.use(express.static(__dirname + '/../client'));
   app.start = app.listen = function(){
@@ -57,11 +57,13 @@ function startMe(aData) {
     res.send(sid.returnProvider(req.params.id));
   });
   
-  app.del('/provider/:id', function(req, res){
+  app.del('/providers/:id', function(req, res){
     res.send(sid.delProvider(req.params.id));
   });
   
-  app.put('/provider', function(req, res){
+  app.post('/providers', function(req, res){
+    if (req.body.providers)
+      req.body = req.body.providers
     sid.addProvider(req.body);
     sid.on('message', function (arg) {
       if (!arg.success) res.statusCode = 504;
