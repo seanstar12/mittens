@@ -47,6 +47,12 @@ Mittens.ExpressSerializer = DS.RESTSerializer.extend({
       sucess: 'success'
     });
   },
+  primaryKey: function(type) {
+    switch (type.toString()) {
+      case 'Mittens.Movie':
+        return 'imdb';
+    }
+  },
 });
 
 // Create ember-data datastore and define our adapter
@@ -84,11 +90,6 @@ Mittens.SearchBoxComponent = Ember.Component.extend({
 
 Mittens.SearchItemController = Ember.ObjectController.extend({
   isOpen: false,
-  didInsertElement: function() {
-    this.get('content').one('didLoad', function() {
-       alert("I LOADED!");
-    });
-  },
   toggle: function() {
      this.set('isOpen',!this.get('isOpen'));
   },
@@ -100,14 +101,8 @@ Mittens.SearchItemController = Ember.ObjectController.extend({
     transaction.add(item);
 
     item.set('isRequested', true);
-    item.set('id', item.get('imdb'));
-    console.log('isError: '+item.get('isError'));
-    console.log('isDirty: '+item.get('isDirty'));
-    console.log(item);
 
     transaction.commit();
-    store.commit();
-    console.log('commit');
   },
 });
 
@@ -119,27 +114,10 @@ Mittens.SearchItemView = Ember.View.extend({
 Mittens.SearchCategoryView = Ember.View.extend({
   classNames: ['category'],
   title: 'Movies',
-  status: function() {
-    if(this.get('content.isLoaded')) {
-      return this.get('content.length');
-    } else {
-      return 'loading';
-    }
-  }.property('content.isLoaded'),
   templateName: 'searchCategory',
-});
-
-Mittens.SearchCategoryList = Ember.CollectionView.extend({
-  tagName: 'ul',
-  itemViewClass: Mittens.SearchItemView,
-});
-
-Mittens.SearchItemComponent = Ember.Component.extend({
-  classNameBindings: ['isOpen:open'],
-  isOpen: false,
-  toggleActions: function() {
-     this.toggleProperty('isOpen');
-  },
+  filteredContent: function() {
+    return this.get('content').filterProperty('imdb');
+  }.property('content.@each').cacheable(),
 });
 
 Mittens.SearchField = Ember.TextField.extend({
