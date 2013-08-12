@@ -62,8 +62,8 @@ function startMe(aData) {
   });
   
   app.post('/providers', function(req, res){
-    if (req.body.providers)
-      req.body = req.body.providers
+    if (req.body.provider)
+      req.body = req.body.provider
     sid.addProvider(req.body);
     sid.on('message', function (arg) {
       if (!arg.success) res.statusCode = 504;
