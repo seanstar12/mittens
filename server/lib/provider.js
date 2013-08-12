@@ -52,10 +52,16 @@
     }
 
     Provider.prototype.send = function(req, res, q) {
-      var query, _this;
+      var fn, query, timeout, timeout_wrapper, _request, _response, _this;
       query = this.buildReturn(q.type, q.term);
+      _response = '';
       _this = this;
-      return http.request(query, function(resp) {
+      timeout_wrapper = function(Request) {
+        return function() {
+          return _this.emit('err', 'Page Timed out');
+        };
+      };
+      _request = http.request(query, function(resp) {
         var bit, str;
         str = '';
         bit = 0;
@@ -64,10 +70,75 @@
           return str += chunk;
         });
         return resp.on('end', function() {
+          var e, obj;
+          clearTimeout(timeout);
+          obj = '';
           _this.emit('status', _this.name + ': ' + bit + ' chunks received.');
-          return res.send(JSON.parse(str));
+          if (str) {
+            try {
+              return res.send(JSON.parse(str)).end();
+            } catch (_error) {
+              e = _error;
+              res.statusCode = 503;
+              return res.send({
+                "response": str
+              }).end();
+            }
+          }
+        });
+      }).on('error', function(err) {
+        clearTimeout(timeout);
+        _this.emit('err', err.errno);
+        res.statusCode = 504;
+        return res.send({
+          "success": false,
+          "error": err.errno,
+          "statusCode": 504
+        }).end();
+      }).end();
+      fn = timeout_wrapper(_request);
+      return timeout = setTimeout(fn, 3000);
+    };
+
+    Provider.prototype.test = function(fn) {
+      var func, query, timeout, timeout_wrapper, _req, _this;
+      timeout_wrapper = function(Request) {
+        return function() {
+          return fn({
+            'success': false,
+            'message': 'Page Timed out'
+          });
+        };
+      };
+      _this = this;
+      query = this.buildReturn('test', '');
+      _req = http.get(query, function(resp) {
+        var str;
+        str = '';
+        resp.on('data', function(chunk) {
+          return str += chunk;
+        });
+        return resp.on('end', function() {
+          var e, obj;
+          obj = {};
+          try {
+            obj = JSON.parse(str);
+          } catch (_error) {
+            e = _error;
+            obj = {
+              "response": str
+            };
+          }
+          return fn(obj);
+        });
+      }).on('error', function(err) {
+        return fn({
+          "success": false,
+          "status": err.code
         });
       }).end();
+      func = timeout_wrapper(_req);
+      return timeout = setTimeout(func, 3000);
     };
 
     Provider.prototype.buildReturn = function(ref, q) {
@@ -113,11 +184,6 @@
         }
       };
 
-      CouchPotato.prototype.move = function() {
-        console.log('hay');
-        return console.log(this);
-      };
-
       return CouchPotato;
 
     })(Provider),
@@ -142,11 +208,6 @@
         add: {
           str: 'movie.add/?identifier='
         }
-      };
-
-      SickBeard.prototype.move = function() {
-        console.log('hello');
-        return console.log(this);
       };
 
       return SickBeard;

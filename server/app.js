@@ -18,16 +18,17 @@ sid.on('ready', startMe);
 
 function startMe(aData) {
   var tv = aData.tv,
-      movie = aData.movie;
-
+      movie = aData.movie
+      apiVersion = sid.getVersion().api;
+      
   app.use(express.bodyParser()); 
   app.use(express.static(__dirname + '/../client'));
   app.start = app.listen = function(){
     return server.listen.apply(server, arguments)
   }
+
   app.start(8083);
-  
-  
+ 
   app.get('/movies', function(req, res){
     movie.send(req,res,{type:'find',term:req.query.q}); 
   });
@@ -52,8 +53,8 @@ function startMe(aData) {
     res.send(sid.returnProviders());
   });
   
-  app.get('/providers/:name', function(req, res){
-    res.send(sid.returnProvider(req.params.name));
+  app.get('/providers/:id', function(req, res){
+    res.send(sid.returnProvider(req.params.id));
   });
   
   app.del('/provider/:id', function(req, res){
@@ -61,7 +62,11 @@ function startMe(aData) {
   });
   
   app.put('/provider', function(req, res){
-    res.send(sid.addProvider(req.body));
+    sid.addProvider(req.body);
+    sid.on('message', function (arg) {
+      if (!arg.success) res.statusCode = 504;
+      res.send(arg);
+    });
   });
 
   app.put('/settings/:provider', function(req, res) {

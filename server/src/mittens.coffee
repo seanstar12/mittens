@@ -45,9 +45,9 @@ class Mittens extends Base
 
     this.emit 'ready', temp
 
-  returnProvider: (name) ->
+  returnProvider: (id) ->
     for provider in @config
-      if provider.name is name
+      if provider.id is parseInt(id)
         return provider
 
   returnProviders: ->
@@ -64,20 +64,46 @@ class Mittens extends Base
     do @writeConfig
     return success: true, message: "Removed Provider", provider: temp
 
+  verifyProvider: (obj, fn) ->
+    console.log 'testing'
+    _this = this
+    
+    if obj.name is 'CouchPotato'
+      _temp = new prov.CouchPotato obj
+      _temp.test( fn )
+
+  verifyAndAdd: (obj, fn) ->
+    console.log 'VerifyAndAdd'
+    _this = this
+
+    if obj.name is 'CouchPotato'
+      _temp = new prov.CouchPotato obj
+      _temp.test( (_data) ->
+        if _data.success 
+          _this.storeProvider obj
+          _this.emit 'message', {'success':true, 'message':'Adding Provider'}
+        else _this.emit 'message', _data
+      )
+
   addProvider: (obj) ->
+    @verifyAndAdd obj, @storeProvider
+    
+  storeProvider: (obj) =>
+    console.log 'store provider'
     temp = new prov.generic (obj)
     temp.id = 0
     delete temp._events
-
+    
     for item in @config
       if item.id >= temp.id
         temp.id = item.id + 1
     
+    console.log temp
     @config.push temp
     do @writeConfig 
-  
     return @config
-    
+
+
   readConfig: ->
     _ref = this
  
@@ -99,7 +125,8 @@ class Mittens extends Base
       if err then _ref.emit 'log', 'I cannot write to the file'
     )
  
-  getVersion: -> JSON.parse(fs.readFileSync "#{__dirname}/../package.json", 'utf8').version
-  
+  getVersion: -> 
+    data = JSON.parse(fs.readFileSync "#{__dirname}/../package.json", 'utf8')
+    return {'app': data.version, 'api': data.api}
 
 module.exports = Mittens

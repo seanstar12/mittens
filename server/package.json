@@ -1,6 +1,7 @@
 {
   "name": "mittens",
   "version": "0.0.1",
+  "api": "1",
   "description": "Easyify All Teh Things",
   "main": "app.js",
   "scripts": {
