@@ -1,9 +1,13 @@
 .search-box {
+  flex: 1;
+  -webkit-flex: 1;
+  width: 100%;
   max-width: 40em;
   min-width: 14em;
   margin: 1rem;
   box-sizing: border-box;
   transition: margin 0.2s linear;
+  margin: auto;
 }
 
 .search-box.small {
@@ -26,6 +30,7 @@
   background: #2f373a;
   padding: 0.3em 0.5em;
   color: #fff;
+  font-family: Oxygen, sans-serif;
 }
 
 .search-box input::-webkit-input-placeholder,

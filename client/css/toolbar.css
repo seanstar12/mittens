@@ -1,0 +1,30 @@
+#toolbar {
+  background: #444;
+  color: #fff;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  -webkit-flex-direction: row;
+  box-shadow: #333 0 0 1em -0.3em;
+}
+
+#toolbar h1 {
+  margin: 0;
+  width: 100%;
+  flex: 1;
+  -webkit-flex: 1;
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: normal;
+  font-family: Oxygen, sans-serif;
+}
+
+#toolbar a {
+  font-size: 1.2em;
+  line-height: 0;
+  padding: 0.5em 0.5em;
+  text-decoration: none;
+  background: #FF7A00;
+  color: #fff;
+  display: block;
+}

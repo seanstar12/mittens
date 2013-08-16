@@ -62,6 +62,15 @@ Mittens.store = DS.Store.create({
   })
 });
 
+Mittens.IndexView = Ember.View.extend({
+  didInsertElement: function() {
+    var snapper = new Snap({
+      element: document.getElementById('main'),
+      slideIntent: 15,
+    });
+  }
+});
+
 Mittens.Movie = DS.Model.extend({
   title: DS.attr('string'),
   imdb: DS.attr('string'),

@@ -1,5 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Oxygen);
 @import url('searchBox.css');
+@import url('toolbar.css');
 
 html {
   height: 100%;
@@ -10,61 +11,35 @@ html {
 
 body {
   height: 100%;
-  background: #eee url(../images/bg_texture.jpg) fixed;
-  display: -webkit-flex;
-  display: flex;
 }
 
 #mittens {
-  margin: auto;
-  max-width: 40em;
-  width: 100%;
-}
-
-.listView .listAdd {
-  background: #F8F8F8;
-  text-align: center;
-  padding: 15px 10px 15px 0px;
-  margin: 0 10px 0 10px;
-}
-
-.listView .listCancelButton {
-  height: 40px;
-  width: 25%;
-  text-align: center;
-  line-height: 40px;
-}
-
-.listView .listAddButton {
-  height: 40px;
-  width: 55%;
-  text-align: center;
-  line-height: 40px;
-}
-
-
-.mittensProgress {
-  width: 60%;
-  margin-left: 10px;
-}
-
-#loadBar {
-  height: 5px;
-  width: 100%;
-}
-
-#loadBarProgress {
   height: 100%;
-  width: 0%;
-  background-color:rgb(255, 0, 173);
 }
 
-.wrap {
-  width: auto;
-  background: #eee;
-  -webkit-box-shadow: #888888 0 1px 4px;
-  -moz-box-shadow: #888888 0 1px 4px;
-  -o-box-shadow: #888888 0 1px 4px;
-  box-shadow: #888888 0 1px 4px;
+#main {
+  height: 100%;
+  //background: #eee url(http://img600.imageshack.us/img600/2807/wallpaper697648.jpg) fixed;
+  background: #eee url(../images/bg_texture.jpeg) fixed;
+  background-size: cover;
+  box-shadow: #333 0 0 2em;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+  -webkit-flex-direction: column;
 }
 
+#content {
+  display: -webkit-flex;
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.snap-drawers {
+  background: #999;
+}
+
+.settings {
+  background: #fff;
+}
