@@ -135,4 +135,26 @@ Mittens.SearchField = Ember.TextField.extend({
   },
 });
 
+Mittens.Provider = DS.Model.extend({
+  name: DS.attr('string'),
+  host: DS.attr('string'),
+  port: DS.attr('string'),
+  api: DS.attr('string'),
+  alias: DS.attr('string'),
+  active: DS.attr('string'),
+});
+
+Mittens.SettingsRoute = Ember.Route.extend({
+  model: function() {
+    return Mittens.Provider.createRecord({});
+  },
+});
+
+Mittens.SettingsController = Ember.ObjectController.extend({
+  submit: function() {
+    var store = Mittens.get('store');
+    store.commit();
+  },
+});
+
 MediaClass("small", ".search-box:media(this-max-width: 30em)");

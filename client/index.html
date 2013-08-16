@@ -11,8 +11,25 @@
 <body class="frame">
   <div id="mittens"></div>
   <script type="text/x-handlebars" id="index">
-    {{search-box label='What would you like to watch today?'}}
-    {{outlet main}}
+    <div class="snap-drawers">
+      <div class="snap-drawer snap-drawer-left">
+        <h2>Left</h2>
+      </div>
+      <div class="snap-drawer snap-drawer-right">
+        <h2>Right</h2>
+      </div>
+    </div>
+    <div id="main" class="snap-content">
+      <div id="toolbar">
+        <a href="#" id="open-left"><i class="icon-reorder"></i></a>
+        <h1>Mittens</h1>
+        {{#linkTo 'settings' class="settings"}}<i class="icon-gear"></i>{{/linkTo}}
+      </div>
+      <div id="content">
+        {{search-box label='What would you like to watch today?'}}
+        {{outlet main}}
+      </div>
+    </div>
   </script>
 
   <script type="text/x-handlebars" id="searchCategory">
@@ -73,6 +90,22 @@
         {{view Mittens.SearchCategoryView contentBinding="content"}}
       </div>
     {{/if}}
+  </script>
+
+  <script type="text/x-handlebars" id="settings">
+    {{#linkTo 'index'}}Home{{/linkTo}}
+    <div class="settings">
+      <h1>Settings</h1>
+      <h2>CouchPotato</h2>
+      <div>{{view Ember.TextField valueBinding="name" placeholder="Name"}}{{name}}</div>
+      <div>{{view Ember.TextField valueBinding="host" placeholder="Host"}}</div>
+      <div>{{view Ember.TextField valueBinding="port" placeholder="Port"}}</div>
+      <div>{{view Ember.TextField valueBinding="api" placeholder="API"}}</div>
+      <div>{{view Ember.TextField valueBinding="alias" placeholder="Alias"}}</div>
+      <div>Active {{view Ember.Checkbox valueBinding="active"}}</div>
+      <button {{action submit}}><i class="icon-save"></i><span> Save</span></button>
+    </div>
+    
   </script>
 
   <script type="text/javascript" src="js/lib/jquery-2.0.2.min.js"></script>
