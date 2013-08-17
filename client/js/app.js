@@ -2,6 +2,10 @@ Mittens = Ember.Application.create({
   rootElement: '#mittens',
 });
 
+Mittens.Router.reopen({
+  location: 'history'
+});
+
 DS.RESTAdapter.registerTransform('arraytostring', {
   serialize: function(value) {
     return Em.isNone(value) ? [] : value;
