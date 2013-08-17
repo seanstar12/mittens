@@ -62,7 +62,7 @@ Mittens.store = DS.Store.create({
   })
 });
 
-Mittens.IndexView = Ember.View.extend({
+Mittens.ApplicationView = Ember.View.extend({
   didInsertElement: function() {
     var snapper = new Snap({
       element: document.getElementById('main'),
