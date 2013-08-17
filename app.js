@@ -20,23 +20,29 @@ function startMe(aData) {
   var tv = aData.tv,
       movie = aData.movie
       apiVersion = sid.getVersion().api;
+ 
+  sid.on('refresh', function(data){
+    tv = data.tv;
+    movie = data.movie;
+  });
   
   app.use(express.bodyParser()); 
-  app.use(express.static(__dirname + '/../client'));
+  app.use(express.static(__dirname + '/client'));
+  app.use(function (req, res, next) {
+      res.header("X-Powered-By", "Honda VTEC®")
+      res.header("X-VTEC-Status", "Kicked in, yo")
+      next()
+  });
   app.start = app.listen = function(){
     return server.listen.apply(server, arguments)
   }
 
   app.start(8083);
- 
+
   app.get('/movies', function(req, res){
     movie.send(req,res,{type:'find',term:req.query.q}); 
   });
 
-  app.get('/cptest', function(req, res){
-    movie.send(req,res,{type:'test'}); 
-  });
-  
   app.get('/movies/:id', function(req, res) {
     movie.send(req,res,{type:'find',term:req.params.id}); 
   });
@@ -45,7 +51,7 @@ function startMe(aData) {
     movie.send(req,res,{type:'update', term:req.params.id});
   });
 
-  app.get('/settings', function(req, res){
+  app.get('/configs', function(req, res){
     res.send(aData);
   });
   
@@ -73,6 +79,10 @@ function startMe(aData) {
 
   app.put('/settings/:provider', function(req, res) {
     res.send({provider: sid.addProvider(req.body), success: true});
+  });
+ 
+  app.get('/*', function(req,res) {
+    res.sendfile(__dirname + '/client/index.html');
   });
   
 //  io.sockets.on('connection', function(socket){
