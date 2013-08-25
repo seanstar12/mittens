@@ -19,8 +19,7 @@ body {
 
 #main {
   height: 100%;
-  //background: #eee url(http://img600.imageshack.us/img600/2807/wallpaper697648.jpg) fixed;
-  background: #eee url(../images/bg_texture.jpeg) fixed;
+  background: #eee url(../images/bg_texture.jpg) fixed;
   background-size: cover;
   box-shadow: #333 0 0 2em;
   display: -webkit-flex;
