@@ -1,0 +1,18 @@
+<div class="snap-drawers">
+  <div class="snap-drawer snap-drawer-left">
+    <h2>Left</h2>
+  </div>
+  <div class="snap-drawer snap-drawer-right">
+    <h2>Right</h2>
+  </div>
+</div>
+<div id="main" class="snap-content">
+  <div id="toolbar">
+    <a href="#" id="open-left"><i class="icon-reorder"></i></a>
+    <h1>Mittens</h1>
+    {{#linkTo 'settings' class="settings"}}<i class="icon-gear"></i>{{/linkTo}}
+  </div>
+  <div id="content">
+    {{outlet main}}
+  </div>
+</div>

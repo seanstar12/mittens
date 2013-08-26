@@ -1,0 +1,12 @@
+{{#linkTo 'index'}}Home{{/linkTo}}
+<div class="settings">
+  <h1>Settings</h1>
+  <h2>CouchPotato</h2>
+  <div>{{view Ember.TextField valueBinding="name" placeholder="Name"}}{{name}}</div>
+  <div>{{view Ember.TextField valueBinding="host" placeholder="Host"}}</div>
+  <div>{{view Ember.TextField valueBinding="port" placeholder="Port"}}</div>
+  <div>{{view Ember.TextField valueBinding="api" placeholder="API"}}</div>
+  <div>{{view Ember.TextField valueBinding="alias" placeholder="Alias"}}</div>
+  <div>Active {{view Ember.Checkbox valueBinding="active"}}</div>
+  <button {{action submit}}><i class="icon-save"></i><span> Save</span></button>
+</div>

@@ -27,7 +27,7 @@ function startMe(aData) {
   });
   
   app.use(express.bodyParser()); 
-  app.use(express.static(__dirname + '/client'));
+  app.use(express.static(__dirname + '/client/public'));
   app.use(function (req, res, next) {
       res.header("X-Powered-By", "Honda VTEC®")
       res.header("X-VTEC-Status", "Kicked in, yo")
@@ -82,7 +82,7 @@ function startMe(aData) {
   });
  
   app.get('/*', function(req,res) {
-    res.sendfile(__dirname + '/client/index.html');
+    res.sendfile(__dirname + '/client/public/index.html');
   });
   
 //  io.sockets.on('connection', function(socket){
