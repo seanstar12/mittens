@@ -103,6 +103,9 @@ module.exports = (grunt) ->
           'public/js/application.js': ['public/js/application.js']
 
     regarde:
+      sass:
+        files: 'libs/sass/**/*.scss'
+        tasks: ['default', 'livereload', 'regarde']
       coffee:
         files: 'libs/js/**/*.coffee'
         tasks: ['default', 'livereload', 'regarde']
