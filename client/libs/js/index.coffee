@@ -5,6 +5,7 @@ window.Mittens = require './app'
 
 Mittens.Store = require './store'
 
+Mittens.ApplicationController = require './controllers/application'
 Mittens.ApplicationView = require './views/application'
 
 Mittens.SearchBoxComponent = require './components/searchBox'
